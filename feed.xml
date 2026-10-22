@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>Strategy Lab</title>
+  <link>https://algostrategylab.github.io/</link>
+  <atom:link href="https://algostrategylab.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Systematic trading strategies backtested properly: exact rules, full metrics, robustness checks, and all the code. One strategy per article.</description>
+  <language>en-us</language>
+  <managingEditor>abhinav.neo@gmail.com (Abhinav Taduka)</managingEditor>
+  <lastBuildDate>Thu, 22 Oct 2026 16:30:00 GMT</lastBuildDate>
+  <item>
+    <title>I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</title>
+    <link>https://algostrategylab.github.io/dual-momentum/</link>
+    <guid isPermaLink="true">https://algostrategylab.github.io/dual-momentum/</guid>
+    <pubDate>Thu, 22 Oct 2026 16:30:00 GMT</pubDate>
+    <author>abhinav.neo@gmail.com (Abhinav Taduka)</author>
+    <description>Gary Antonacci's Global Equities Momentum backtested over 1997-2026 with realistic costs and next-close execution. Before the book was published it beat the S&amp;P 500 by 5.1 points a year; after, it trailed by 5.4. Includes the exact rules, 90+ metrics against the S&amp;P 500, component ablation, lookback sensitivity, an in-sample/out-of-sample split and an anchored walk-forward. All code and result files public.</description>
+  </item>
+</channel>
+</rss>
