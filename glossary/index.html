@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — Strategy Lab</title>
+<meta name="description" content="Plain-language definitions of the quant and algorithmic trading terms used across the Strategy Lab series: CAGR, Sharpe, drawdown, beta, walk-forward and 59 more.">
+<link rel="canonical" href="https://algostrategylab.github.io/glossary/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glossary — Strategy Lab">
+<meta property="og:description" content="Plain-language definitions of every quant trading term used in the series.">
+<link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Strategy Lab</a>
+  <nav><a href="../">All strategies</a><a href="../glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab">GitHub</a></nav>
+</div></header>
+
+<div class="wrap">
+<article>
+<h1>Glossary</h1>
+<p class="deck">Every piece of jargon used in this series, defined in plain language. No prior knowledge assumed.</p>
+<p class="byline">64 terms &middot; updated 22 October 2026</p>
+
+<p class="lede" style="margin-bottom:34px"><a href="#strategy-concepts">Strategy concepts</a> &middot; <a href="#backtesting">Backtesting</a> &middot; <a href="#return-metrics">Return metrics</a> &middot; <a href="#risk-metrics">Risk metrics</a> &middot; <a href="#risk-adjusted-metrics">Risk-adjusted metrics</a> &middot; <a href="#benchmark-relative-metrics">Benchmark-relative metrics</a> &middot; <a href="#instruments">Instruments</a></p>
+
+<h2 id="strategy-concepts">Strategy concepts</h2>
+<dl class="glossary">
+  <dt id="momentum">Momentum</dt>
+  <dd>The tendency for assets that have performed well recently to keep performing well over the next few months, and for losers to keep losing. It is the most documented pattern in finance, usually explained by investors reacting to news too slowly at first and then piling in.</dd>
+  <dt id="absolute-momentum">Absolute momentum</dt>
+  <dd>Comparing an asset against <em>itself in the past</em> or against cash: has the S&amp;P 500 beaten T-bills over the last 12 months? If yes, stay invested; if no, get out. Also called time-series momentum. It acts as a trend filter.</dd>
+  <dt id="relative-momentum">Relative momentum</dt>
+  <dd>Comparing assets against <em>each other</em> and holding the winner: has the US or international market done better over the last 12 months? Also called cross-sectional momentum.</dd>
+  <dt id="trend-filter">Trend filter</dt>
+  <dd>Any rule that switches you out of a risky asset when its trend turns down. A moving-average crossover and an absolute-momentum test are both trend filters. The goal is to avoid the long grinding part of bear markets.</dd>
+  <dt id="lookback">Lookback</dt>
+  <dd>How far back a rule looks when measuring performance. A 12-month lookback means the signal is based on the last 12 months of returns. Shorter lookbacks react faster but produce more false signals.</dd>
+  <dt id="rebalance">Rebalance</dt>
+  <dd>Resetting the portfolio to its target weights on a schedule — here, the last trading day of each month. Between rebalances the positions are simply held.</dd>
+  <dt id="whipsaw">Whipsaw</dt>
+  <dd>When a rule sells after a drop, the market immediately recovers, and the rule buys back higher — losing money on both sides. Choppy, directionless markets cause whipsaw, and it is the main cost of any trend filter.</dd>
+  <dt id="buy-and-hold">Buy and hold</dt>
+  <dd>Buying an asset and never trading it. The benchmark any active strategy has to beat, since it costs almost nothing and requires no decisions.</dd>
+  <dt id="sixty-forty">60/40</dt>
+  <dd>A portfolio of 60% stocks and 40% bonds, rebalanced periodically. The classic default allocation, used here as a second reference point.</dd>
+  <dt id="risk-premium">Risk premium</dt>
+  <dd>The extra return investors demand for holding something risky instead of cash. Most systematic strategies are attempts to harvest one risk premium or another.</dd>
+  <dt id="volatility-targeting">Volatility targeting</dt>
+  <dd>Adjusting position size so the portfolio's risk stays roughly constant — holding less when markets are turbulent and more when they are calm.</dd>
+</dl>
+<h2 id="backtesting">Backtesting</h2>
+<dl class="glossary">
+  <dt id="backtest">Backtest</dt>
+  <dd>Running a trading rule over historical data to see how it would have performed. Useful for understanding a strategy's behaviour, but it is a simulation on data that already happened, not a prediction.</dd>
+  <dt id="look-ahead-bias">Look-ahead bias</dt>
+  <dd>The most common backtest error: accidentally using information that would not have been available at the time, such as trading on a closing price at that same close. It makes results look far better than reality. Here it is avoided by executing the next day.</dd>
+  <dt id="in-sample">In-sample / out-of-sample</dt>
+  <dd>In-sample is the data a strategy was designed or tuned on; out-of-sample is data it has never seen. A strategy that works in-sample but not out-of-sample was probably fitted to noise.</dd>
+  <dt id="overfitting">Overfitting</dt>
+  <dd>Tuning a strategy so precisely to past data that it captures random noise instead of a real pattern. Overfitted strategies look spectacular in backtests and fail immediately in live trading.</dd>
+  <dt id="walk-forward">Walk-forward analysis</dt>
+  <dd>A stricter test: choose the parameters using only data up to a point in time, trade them for the next period, then roll forward and repeat. It simulates what an honest practitioner would actually have been able to do.</dd>
+  <dt id="slippage">Slippage</dt>
+  <dd>The difference between the price you expected and the price you actually got. Together with commissions and the bid-ask spread it forms the trading cost a backtest must subtract.</dd>
+  <dt id="basis-point">Basis point (bp)</dt>
+  <dd>One hundredth of a percent. 10 bps = 0.10%. Trading costs are usually quoted this way.</dd>
+  <dt id="turnover">Turnover</dt>
+  <dd>How much of the portfolio is traded over a year. 100% turnover means the equivalent of the whole portfolio changed hands once. High turnover means costs and taxes matter more.</dd>
+  <dt id="equity-curve">Equity curve</dt>
+  <dd>The line showing what $1 invested in the strategy would have grown to over time. Usually plotted on a log scale so that early and late percentage moves look equally large.</dd>
+  <dt id="benchmark">Benchmark</dt>
+  <dd>The yardstick a strategy is measured against — here the S&amp;P 500. Without one, a return number means very little.</dd>
+</dl>
+<h2 id="return-metrics">Return metrics</h2>
+<dl class="glossary">
+  <dt id="cagr">CAGR</dt>
+  <dd>Compound annual growth rate: the single annual rate that would turn the starting value into the ending value. 10% CAGR over 29 years means growing 10% a year, every year, compounding. It is the honest way to quote long-run returns.</dd>
+  <dt id="total-return">Total return</dt>
+  <dd>Price change <em>plus</em> dividends reinvested. All the data here is total return, which is why the figures are higher than the index levels you see quoted in the news.</dd>
+  <dt id="rolling-return">Rolling return</dt>
+  <dd>Returns measured over every possible window of a given length — every 1-year period, every 3-year period — rather than just calendar years. It shows what a typical investor's experience looked like regardless of when they started.</dd>
+  <dt id="volatility-drag">Volatility drag</dt>
+  <dd>The gap between the average yearly return and the actual compounded return, caused by losses hurting more than equal-sized gains help. Lose 50%, and you need +100% to get back. Reducing volatility reduces this drag.</dd>
+  <dt id="ytd">Year to date (YTD)</dt>
+  <dd>Performance from 1 January of the current year up to today.</dd>
+</dl>
+<h2 id="risk-metrics">Risk metrics</h2>
+<dl class="glossary">
+  <dt id="volatility">Volatility</dt>
+  <dd>How much returns bounce around, expressed as an annualised standard deviation. 15% volatility roughly means that in about two years out of three, the yearly return lands within 15 points of the average. Higher means a rougher ride.</dd>
+  <dt id="drawdown">Drawdown</dt>
+  <dd>How far the portfolio has fallen from its highest previous value. A –30% drawdown means you are 30% below the best it has ever been. This, not volatility, is what makes people abandon strategies.</dd>
+  <dt id="max-drawdown">Maximum drawdown</dt>
+  <dd>The worst peak-to-trough fall in the whole record. The single most important risk number for most people, because it describes the worst moment you would have had to live through.</dd>
+  <dt id="underwater">Underwater</dt>
+  <dd>Any period spent below a previous peak. An underwater plot shows drawdown over time; the stretches at zero are new highs.</dd>
+  <dt id="downside-deviation">Downside deviation</dt>
+  <dd>Like volatility, but counting only the moves that lose money. Upside swings are not risk, so this is arguably the fairer measure.</dd>
+  <dt id="ulcer-index">Ulcer index</dt>
+  <dd>A risk measure that accounts for how deep drawdowns are <em>and</em> how long they last, rather than just the single worst one. Lower is better. Named for the stress it tries to quantify.</dd>
+  <dt id="pain-index">Pain index</dt>
+  <dd>The average drawdown across the entire history. If it is 6%, you were on average 6% below the high-water mark at any given moment.</dd>
+  <dt id="var">Value at Risk (VaR)</dt>
+  <dd>A threshold loss at a given probability. A daily 95% VaR of –1.5% means that on the worst 5% of days, losses exceeded 1.5%. It says where the bad zone begins, not how bad it gets inside it.</dd>
+  <dt id="cvar">Conditional VaR (CVaR)</dt>
+  <dd>The average loss on the days that breach VaR — so it does say how bad the bad days get. Also called expected shortfall, and generally more informative than VaR.</dd>
+  <dt id="skewness">Skewness</dt>
+  <dd>Whether the surprises tend to be to the upside or the downside. Negative skew means occasional large losses among many small gains — the typical profile of equities and of option selling.</dd>
+  <dt id="kurtosis">Kurtosis</dt>
+  <dd>How fat the tails are: how often extreme moves happen compared with a normal bell curve. High kurtosis means crashes and spikes are more common than standard models assume.</dd>
+  <dt id="tail-ratio">Tail ratio</dt>
+  <dd>The size of the best outcomes divided by the size of the worst. Above 1 means the good tail is bigger than the bad tail.</dd>
+</dl>
+<h2 id="risk-adjusted-metrics">Risk-adjusted metrics</h2>
+<dl class="glossary">
+  <dt id="sharpe">Sharpe ratio</dt>
+  <dd>Return per unit of volatility — the most quoted measure of whether a return was worth the risk taken. Roughly: below 0.5 is unremarkable, around 1.0 is good, above 2.0 is rare and usually too good to be true. It treats upside and downside swings identically, which is its main weakness.</dd>
+  <dt id="sortino">Sortino ratio</dt>
+  <dd>Like Sharpe, but dividing by downside deviation instead of total volatility, so it does not penalise a strategy for making money quickly. Usually higher than Sharpe.</dd>
+  <dt id="calmar">Calmar ratio</dt>
+  <dd>CAGR divided by maximum drawdown. It answers a very practical question: how much annual return did I get for the worst loss I had to sit through? Also called the MAR ratio.</dd>
+  <dt id="omega">Omega ratio</dt>
+  <dd>Total gains divided by total losses across all returns. Above 1 means gains outweigh losses; it uses the entire distribution rather than just the average and standard deviation.</dd>
+  <dt id="martin">Martin ratio</dt>
+  <dd>CAGR divided by the ulcer index. Rewards strategies whose drawdowns are both shallow and short. Also called the Ulcer Performance Index.</dd>
+  <dt id="sterling-burke">Sterling and Burke ratios</dt>
+  <dd>Two further return-per-drawdown measures. Sterling divides return by the average drawdown; Burke divides by the square root of the sum of squared drawdowns, which penalises several deep drawdowns more heavily.</dd>
+  <dt id="profit-factor">Profit factor</dt>
+  <dd>Gross profits divided by gross losses over a set of periods. 1.5 means $1.50 earned for every $1.00 lost. Below 1.0 the strategy loses money.</dd>
+  <dt id="gain-to-pain">Gain-to-pain ratio</dt>
+  <dd>Total return divided by the sum of all losing periods. A plain-language measure of how much reward you got per unit of suffering.</dd>
+  <dt id="payoff-ratio">Payoff ratio</dt>
+  <dd>The average winning period divided by the average losing period. Above 1 means your wins are individually bigger than your losses.</dd>
+  <dt id="kelly">Kelly fraction</dt>
+  <dd>The mathematically growth-optimal bet size given an edge. Almost nobody trades full Kelly, because it is far too volatile in practice; it is used as a reference point.</dd>
+</dl>
+<h2 id="benchmark-relative-metrics">Benchmark-relative metrics</h2>
+<dl class="glossary">
+  <dt id="beta">Beta</dt>
+  <dd>How much the strategy moves when the market moves. Beta of 1.0 moves with the market, 0.5 moves half as much, 0 is uncorrelated. A low beta with decent returns is the interesting combination.</dd>
+  <dt id="alpha">Alpha</dt>
+  <dd>Return above what the strategy's market exposure alone would explain. Jensen's alpha is the standard formulation: what is left after paying for beta. Genuine positive alpha is rare and hard to prove.</dd>
+  <dt id="correlation">Correlation and R²</dt>
+  <dd>Correlation measures how closely two return streams move together, from –1 to +1. R² is correlation squared: the share of the strategy's movement explained by the benchmark's.</dd>
+  <dt id="tracking-error">Tracking error</dt>
+  <dd>How much the strategy's returns deviate from the benchmark's, annualised. High tracking error means long stretches of looking very different from the index — which is uncomfortable even when you are ahead.</dd>
+  <dt id="information-ratio">Information ratio</dt>
+  <dd>Excess return over the benchmark divided by tracking error. Essentially a Sharpe ratio for the active bets being taken.</dd>
+  <dt id="treynor">Treynor ratio</dt>
+  <dd>Excess return per unit of beta, rather than per unit of total volatility. Useful when the strategy is one sleeve of a larger diversified portfolio.</dd>
+  <dt id="m2">M² (Modigliani measure)</dt>
+  <dd>The return the strategy would have produced if it were leveraged or de-leveraged to exactly the benchmark's volatility. It converts a Sharpe advantage into percentage points, which is far easier to interpret.</dd>
+  <dt id="capture">Up capture and down capture</dt>
+  <dd>The share of the market's gains you captured in up periods, and the share of its losses you suffered in down periods. 80% up and 60% down is the asymmetry every defensive strategy is chasing.</dd>
+  <dt id="batting-average">Batting average</dt>
+  <dd>The percentage of periods in which the strategy beat the benchmark. A strategy can have a low batting average and still win overall if its wins are much larger than its losses.</dd>
+  <dt id="relative-drawdown">Relative drawdown</dt>
+  <dd>How far the strategy has fallen behind the benchmark since it was last ahead. It measures the patience required to keep holding it, and it is why most people quit good strategies.</dd>
+</dl>
+<h2 id="instruments">Instruments</h2>
+<dl class="glossary">
+  <dt id="etf">ETF</dt>
+  <dd>Exchange-traded fund: a basket of securities that trades like a single stock. SPY tracks the S&amp;P 500, AGG tracks US bonds. Cheap, liquid, and the usual building blocks for retail systematic strategies.</dd>
+  <dt id="mutual-fund-share-class">Mutual fund share class</dt>
+  <dd>A version of a mutual fund with its own fee structure, priced once a day at the close. Older funds like VFINX are used in long backtests because they have decades more history than the equivalent ETFs.</dd>
+  <dt id="tbill">T-bill</dt>
+  <dd>A short-term US government debt security, effectively the risk-free asset. Its yield is the standard definition of 'cash' returns and the usual hurdle an investment must beat.</dd>
+  <dt id="expense-ratio">Expense ratio</dt>
+  <dd>The annual percentage a fund charges. It is already deducted from the fund prices used here, so the backtest returns are net of fund fees.</dd>
+  <dt id="aggregate-bonds">Aggregate bonds</dt>
+  <dd>A broad basket of investment-grade US bonds — government, corporate and mortgage-backed. The usual 'safe' sleeve of a portfolio, though 2022 showed it is not risk-free.</dd>
+  <dt id="taxable-event">Taxable event</dt>
+  <dd>Any sale that realises a gain or loss and may create a tax bill. Strategies that switch positions often are much more attractive inside a tax-advantaged account.</dd>
+</dl>
+
+<hr>
+<p class="note">Missing a term, or think a definition could be clearer? <a href="https://github.com/AlgoStrategyLab/AlgoStrategyLab.github.io/issues">Open an issue</a> and I'll fix it.</p>
+</article>
+</div>
+
+<footer class="site"><div class="wrap">
+Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab">github.com/AlgoStrategyLab</a> &middot; <a href="../feed.xml">RSS</a>
+</div></footer>
+</body>
+</html>

@@ -19,7 +19,7 @@
 <body>
 <header class="site"><div class="wrap">
   <a class="brand" href="../">Strategy Lab</a>
-  <nav><a href="../">All strategies</a><a href="https://github.com/AlgoStrategyLab">GitHub</a><a href="../feed.xml">RSS</a></nav>
+  <nav><a href="../">All strategies</a><a href="../glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab">GitHub</a><a href="../feed.xml">RSS</a></nav>
 </div></header>
 
 <div class="wrap">
@@ -27,11 +27,11 @@
 
 <h1>I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</h1>
 
-<p class="deck">Full rules, 90+ metrics, walk-forward validation, and all the code. The risk numbers held up. The returns did not.</p>
+<p class="deck">Full rules, 90+ metrics, <a class="gl" href="../glossary/#walk-forward">walk-forward</a> validation, and all the code. The risk numbers held up. The returns did not.</p>
 
 <p class="byline">Abhinav Taduka &middot; 22 October 2026 &middot; Strategy Lab #1</p>
 
-<p>Dual Momentum is one of the most widely recommended systematic strategies in retail investing. The rule takes two sentences to state, it sidestepped both the dot-com bust and the 2008 crash in backtests, and Gary Antonacci's 2014 book made it something close to canon in the DIY quant community.</p>
+<p><a class="gl" href="../glossary/#momentum">Dual Momentum is</a> one of the most widely recommended systematic strategies in retail investing. The rule takes two sentences to state, it sidestepped both the dot-com bust and the 2008 crash in backtests, and Gary Antonacci's 2014 book made it something close to canon in the DIY quant community.</p>
 
 <p>So I rebuilt it from scratch and ran it over 29 years of daily data — May 1997 to October 2026 — with realistic costs, next-day execution and no fitted parameters. Then I split the record at 2014, the year the book was published.</p>
 
@@ -41,32 +41,34 @@
 
 <p>Here is the whole thing: the rules, every metric I could compute, and the four robustness tests that decide whether any of it means anything. <a href="https://github.com/AlgoStrategyLab/dual-momentum">All the code and every result file is public</a>, so you can disagree with me using my own data.</p>
 
+<p class="note"><strong>New to systematic trading?</strong> Terms like <a href="../glossary/#cagr">CAGR</a>, <a href="../glossary/#sharpe">Sharpe ratio</a>, <a href="../glossary/#max-drawdown">maximum drawdown</a> and <a href="../glossary/#walk-forward">walk-forward analysis</a> are explained in plain language in the <a href="../glossary/">glossary</a> — 64 definitions, no prior knowledge assumed. Dotted underlines in this article link straight to the relevant entry.</p>
+
 <h2>The idea</h2>
 
-<p>Dual Momentum, in Antonacci's Global Equities Momentum (GEM) formulation, asks two questions once a month and then does nothing for the rest of it. First, <strong>absolute momentum</strong>: has the stock market beaten cash over the past 12 months? If not, hold bonds. Second, <strong>relative momentum</strong>: if stocks are winning, hold whichever of US or international equities has the stronger 12-month return.</p>
+<p>Dual Momentum, in Antonacci's Global Equities Momentum (GEM) formulation, asks two questions once a month and then does nothing for the rest of it. First, <strong><a class="gl" href="../glossary/#absolute-momentum">absolute momentum</a></strong>: has the stock market beaten cash over the past 12 months? If not, hold bonds. Second, <strong><a class="gl" href="../glossary/#relative-momentum">relative momentum</a></strong>: if stocks are winning, hold whichever of US or international equities has the stronger 12-month return.</p>
 
-<p>That is the entire strategy. One lookback, one rebalance a month, one position at a time.</p>
+<p>That is the entire strategy. One <a class="gl" href="../glossary/#lookback">lookback</a>, one <a class="gl" href="../glossary/#rebalance">rebalance</a> a month, one position at a time.</p>
 
 <p>The inefficiency it leans on is the best-documented one in empirical finance. Assets that have outperformed over the past 6–12 months tend to keep outperforming for the next 1–12 months (Jegadeesh &amp; Titman, 1993; Moskowitz, Ooi &amp; Pedersen, 2012). The usual explanations are behavioural — investors under-react to news, then herd into it — plus the structural fact that bear markets tend to unfold over months rather than days, which gives a slow 12-month filter time to step aside.</p>
 
-<p>GEM combines two separate effects. Relative momentum harvests the cross-sectional premium; absolute momentum is a trend filter. Keep that distinction in mind, because the robustness section shows that one of the two does essentially all the work.</p>
+<p>GEM combines two separate effects. Relative momentum harvests the cross-sectional premium; absolute momentum is a <a class="gl" href="../glossary/#trend-filter">trend filter</a>. Keep that distinction in mind, because the robustness section shows that one of the two does essentially all the work.</p>
 
-<h2>The rules, exactly as backtested</h2>
+<h2>The rules, exactly as <a class="gl" href="../glossary/#backtest">backtested</a></h2>
 
 <p>On the last trading day of every month, using month-end closes:</p>
 
 <ol>
-<li>Compute the trailing 12-month total return of US equities, international equities and T-bills.</li>
-<li><strong>Absolute momentum test:</strong> if US equities' 12-month return is below the T-bill return, hold 100% US aggregate bonds. Stop.</li>
+<li>Compute the trailing 12-month <a class="gl" href="../glossary/#total-return">total return</a> of US equities, international equities and <a class="gl" href="../glossary/#tbill">T-bills</a>.</li>
+<li><strong>Absolute momentum test:</strong> if US equities' 12-month return is below the T-bill return, hold 100% US <a class="gl" href="../glossary/#aggregate-bonds">aggregate bonds</a>. Stop.</li>
 <li><strong>Relative momentum test:</strong> otherwise hold 100% of whichever equity sleeve — US or international — has the higher 12-month return.</li>
 <li>Execute at the next trading day's close. Hold until the next month-end. No leverage, no shorting, no intra-month trades.</li>
 </ol>
 
 <figure><img src="../assets/tables/t_rules.png" alt="Instruments used: VFINX for US equities, VGTSX for international, VBMFX for bonds, 13-week T-bill yield as the cash hurdle"></figure>
 
-<p>I used mutual-fund share classes because they carry the longest common history — VGTSX launched in April 1996. The ETF version (SPY/EFA/AGG) is run as a cross-check in the robustness section.</p>
+<p>I used <a class="gl" href="../glossary/#mutual-fund-share-class">mutual-fund share classes</a> because they carry the longest common history — VGTSX launched in April 1996. The <a class="gl" href="../glossary/#etf">ETF version</a> (SPY/EFA/AGG) is run as a cross-check in the robustness section.</p>
 
-<p>It is worth noting what the rules do <em>not</em> contain: no stop-losses, no volatility targeting, no partial positions. One asset, all in, once a month.</p>
+<p>It is worth noting what the rules do <em>not</em> contain: no stop-losses, no <a class="gl" href="../glossary/#volatility-targeting">volatility targeting</a>, no partial positions. One asset, all in, once a month.</p>
 
 <h2>Backtest setup</h2>
 
@@ -74,13 +76,13 @@
 
 <figure><img src="../assets/tables/t_setup.png" alt="Backtest setup: Yahoo Finance adjusted daily closes, May 1997 to October 2026, monthly rebalance, next-close execution, 10 bps costs, no fitted parameters"></figure>
 
-<p><strong>Bias controls.</strong> Signals use only month-end closes available on the rebalance date, and execution is lagged a day, so there is no same-bar look-ahead. No parameters were fitted — the 12-month lookback is the published rule, and the sensitivity grid below exists precisely to show what happens if you tune it. Fund expense ratios are already inside the adjusted prices.</p>
+<p><strong>Bias controls.</strong> Signals use only month-end closes available on the rebalance date, and execution is lagged a day, so there is no same-bar <a class="gl" href="../glossary/#look-ahead-bias">look-ahead</a>. No parameters were fitted — the 12-month lookback is the published rule, and the sensitivity grid below exists precisely to show what happens if you tune it. Fund <a class="gl" href="../glossary/#expense-ratio">expense ratios</a> are already inside the adjusted prices.</p>
 
-<p>What is <em>not</em> modelled: taxes (32 switches in 354 months, so roughly one month in eleven is a taxable event), bid-ask spread beyond the flat 10 bps, and the fact that mutual funds fill at the same close as the signal, which an ETF implementation would not.</p>
+<p>What is <em>not</em> modelled: taxes (32 switches in 354 months, so roughly one month in eleven is a <a class="gl" href="../glossary/#taxable-event">taxable event</a>), bid-ask spread beyond the flat <a class="gl" href="../glossary/#basis-point">10 bps</a>, and the fact that mutual funds fill at the same close as the signal, which an ETF implementation would not.</p>
 
 <h2>Results</h2>
 
-<p>Over 29.4 years, Dual Momentum turned $1 into $17.65 against $15.89 for the S&amp;P 500 — a 10.25% CAGR versus 9.85% — with a quarter less volatility and a maximum drawdown of 34% against 55%.</p>
+<p>Over 29.4 years, Dual Momentum turned $1 into $17.65 against $15.89 for the S&amp;P 500 — a 10.25% <a class="gl" href="../glossary/#cagr">CAGR</a> versus 9.85% — with a quarter less volatility and a <a class="gl" href="../glossary/#max-drawdown">maximum drawdown</a> of 34% against 55%.</p>
 
 <p>The return edge is small. The risk edge is the story.</p>
 
@@ -118,13 +120,13 @@
 
 <h2>Robustness: four tests</h2>
 
-<p>A single equity curve proves nothing. These four ask whether the result survives changing the one parameter, changing the era, changing the instruments, and re-optimising honestly.</p>
+<p>A single <a class="gl" href="../glossary/#equity-curve">equity curve</a> proves nothing. These four ask whether the result survives changing the one parameter, changing the era, changing the instruments, and re-optimising honestly.</p>
 
 <h3>1. Which half does the work?</h3>
 
 <figure><img src="../assets/tables/t_ablation.png" alt="Component ablation: full strategy, absolute momentum only, relative momentum only, and buy-and-hold"></figure>
 
-<p>The trend filter is the product. Relative momentum on its own has <em>worse</em> drawdowns than the index — it rode international equities all the way down in 2008 — and adds only 0.4 points of CAGR when layered on top of the filter.</p>
+<p>The trend filter is the product. Relative momentum on its own has <em>worse</em> <a class="gl" href="../glossary/#drawdown">drawdowns</a> than the index — it rode international equities all the way down in 2008 — and adds only 0.4 points of CAGR when layered on top of the filter.</p>
 
 <p>If you remember one thing from this article: the absolute-momentum test is where the risk reduction comes from. The clever half is the half you can drop.</p>
 
@@ -148,7 +150,7 @@
 
 <h3>4. Walk-forward</h3>
 
-<p>Re-choosing the lookback each year from the best of {3, 6, 9, 12, 15, 18} on the trailing five years, then trading it out-of-sample for the next year, 2003–2025:</p>
+<p>Re-choosing the lookback each year from the best of {3, 6, 9, 12, 15, 18} on the trailing five years, then trading it <a class="gl" href="../glossary/#in-sample">out-of-sample</a> for the next year, 2003–2025:</p>
 
 <figure><img src="../assets/tables/t_walkforward.png" alt="Walk-forward results: optimised 8.7%, fixed 12-month 9.2%, S&amp;P 500 11.3%"></figure>
 
@@ -175,9 +177,9 @@
 <ul>
 <li>A 12-month filter cannot react to a crash inside a single month. In February–March 2020 it was 100% in US equities and took the full –34% — its worst drawdown of the entire backtest, worse than 2008.</li>
 <li>It gives back the edge in recoveries, re-entering late: 2009 (+6% vs +27%), the 2020 rebound, 2023 (+9% vs +26%).</li>
-<li>Whipsaw in choppy markets. In 2011 and 2015–16 it lost <em>more</em> than the index because the filter flipped at the wrong moments.</li>
+<li><a class="gl" href="../glossary/#whipsaw">Whipsaw</a> in choppy markets. In 2011 and 2015–16 it lost <em>more</em> than the index because the filter flipped at the wrong moments.</li>
 <li>Binary all-or-nothing allocation means a single month-end print decides 100% of exposure.</li>
-<li>A 14.6% tracking error and a –73% maximum relative drawdown. It can lag the index by enormous margins for years.</li>
+<li>A 14.6% <a class="gl" href="../glossary/#tracking-error">tracking error</a> and a –73% maximum <a class="gl" href="../glossary/#relative-drawdown">relative drawdown</a>. It can lag the index by enormous margins for years.</li>
 </ul>
 
 <h2>Failure modes, and what I'd change before trading it</h2>
@@ -218,12 +220,12 @@ python make_charts.py  # regenerates every chart</code></pre>
 <h3>Returns</h3>
 <figure><img src="../assets/tables/t_returns.png" alt="Full returns metrics table"></figure>
 
-<p>The arithmetic mean is lower than the index but the geometric mean (CAGR) is higher: that gap <em>is</em> the volatility drag the strategy avoids. Note also the 7-month losing streak and the –19% worst rolling year. This is not a smooth ride, it is a less bumpy one.</p>
+<p>The arithmetic mean is lower than the index but the geometric mean (CAGR) is higher: that gap <em>is</em> the <a class="gl" href="../glossary/#volatility-drag">volatility drag</a> the strategy avoids. Note also the 7-month losing streak and the –19% worst rolling year. This is not a smooth ride, it is a less bumpy one.</p>
 
 <h3>Risk</h3>
 <figure><img src="../assets/tables/t_risk.png" alt="Full risk metrics table"></figure>
 
-<p>The ulcer and pain indices are the numbers to look at — both roughly halved, because they measure how deep <em>and</em> how long drawdowns run, not just the worst one. The flip side is in the tail rows: the strategy has <em>more</em> negative skew and fatter tails than the index, because when it is caught it is caught fully invested, and the worst 5- and 20-day returns are identical to the index's.</p>
+<p>The <a class="gl" href="../glossary/#ulcer-index">ulcer</a> and <a class="gl" href="../glossary/#pain-index">pain indices</a> are the numbers to look at — both roughly halved, because they measure how deep <em>and</em> how long drawdowns run, not just the worst one. The flip side is in the tail rows: the strategy has <em>more</em> <a class="gl" href="../glossary/#skewness">negative skew</a> and <a class="gl" href="../glossary/#kurtosis">fatter tails</a> than the index, because when it is caught it is caught fully invested, and the worst 5- and 20-day returns are identical to the index's.</p>
 
 <figure><img src="../assets/charts/chart8_underwater.png" alt="Underwater plot showing the five deepest drawdowns"></figure>
 
@@ -234,12 +236,12 @@ python make_charts.py  # regenerates every chart</code></pre>
 <h3>Risk-adjusted</h3>
 <figure><img src="../assets/tables/t_riskadj.png" alt="Risk-adjusted ratios table"></figure>
 
-<p>One row deserves a pause: the Sharpe standard error. With 29 years of data, a Sharpe of 0.73 carries a 95% interval of roughly 0.3 to 1.1 — and the index's 0.59 sits well inside it. The improvement in Sharpe is real but not statistically decisive. The improvement in drawdown-based ratios (Calmar 0.30 vs 0.18, Martin 1.17 vs 0.64) is much larger, and that is the defensible claim.</p>
+<p>One row deserves a pause: the <a class="gl" href="../glossary/#sharpe">Sharpe standard error</a>. With 29 years of data, a Sharpe of 0.73 carries a 95% interval of roughly 0.3 to 1.1 — and the index's 0.59 sits well inside it. The improvement in Sharpe is real but not statistically decisive. The improvement in drawdown-based ratios (<a class="gl" href="../glossary/#calmar">Calmar</a> 0.30 vs 0.18, <a class="gl" href="../glossary/#martin">Martin</a> 1.17 vs 0.64) is much larger, and that is the defensible claim.</p>
 
 <h3>Relative to the S&amp;P 500</h3>
 <figure><img src="../assets/tables/t_relative.png" alt="Benchmark-relative metrics table"></figure>
 
-<p>These rows explain both halves of the story. Beta of 0.52 and down-capture of 62% say the strategy behaves like a half-equity portfolio in bad months; up-capture of 77% says it still gets most of the good ones. That asymmetry is the whole thesis.</p>
+<p>These rows explain both halves of the story. <a class="gl" href="../glossary/#beta">Beta of 0.52</a> and <a class="gl" href="../glossary/#capture">down-capture</a> of 62% say the strategy behaves like a half-equity portfolio in bad months; up-capture of 77% says it still gets most of the good ones. That asymmetry is the whole thesis.</p>
 
 <p>But a 14.6% tracking error and a –73% relative drawdown mean it can and does lag the index by enormous margins for years at a time. That is the behavioural cost, and it is the reason most people abandon a strategy like this shortly before the next crash would have paid them back.</p>
 

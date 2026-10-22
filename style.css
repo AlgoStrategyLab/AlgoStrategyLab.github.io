@@ -56,3 +56,11 @@ footer.site a{color:var(--muted)}
   article h2{font-size:1.32rem}
   .wrap{padding:0 16px}
 }
+
+/* glossary */
+dl.glossary{margin:0 0 40px}
+dl.glossary dt{font-family:var(--sans);font-weight:700;font-size:1.02rem;margin:26px 0 6px;scroll-margin-top:24px}
+dl.glossary dt:target{color:var(--accent)}
+dl.glossary dd{margin:0;font-size:1.06rem;line-height:1.62;color:var(--muted)}
+article a.gl{color:inherit;text-decoration:none;border-bottom:1px dotted var(--faint)}
+article a.gl:hover{color:var(--accent);border-bottom-color:var(--accent)}
