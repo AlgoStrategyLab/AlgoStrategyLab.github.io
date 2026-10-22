@@ -31,7 +31,7 @@
 
 <p class="byline">Abhinav Taduka &middot; 22 October 2026 &middot; Strategy Lab #1</p>
 
-<p><a class="gl" href="../glossary/#momentum">Dual Momentum is</a> one of the most widely recommended systematic strategies in retail investing. The rule takes two sentences to state, it sidestepped both the dot-com bust and the 2008 crash in backtests, and Gary Antonacci's 2014 book made it something close to canon in the DIY quant community.</p>
+<p>Dual Momentum is one of the most widely recommended systematic strategies in retail investing. The rule takes two sentences to state, it sidestepped both the dot-com bust and the 2008 crash in backtests, and Gary Antonacci's 2014 book made it something close to canon in the DIY quant community.</p>
 
 <p>So I rebuilt it from scratch and ran it over 29 years of daily data — May 1997 to October 2026 — with realistic costs, next-day execution and no fitted parameters. Then I split the record at 2014, the year the book was published.</p>
 
@@ -42,14 +42,13 @@
 <p>Here is the whole thing: the rules, every metric I could compute, and the four robustness tests that decide whether any of it means anything. <a href="https://github.com/AlgoStrategyLab/dual-momentum">All the code and every result file is public</a>, so you can disagree with me using my own data.</p>
 
 <p class="note"><strong>New to systematic trading?</strong> Terms like <a href="../glossary/#cagr">CAGR</a>, <a href="../glossary/#sharpe">Sharpe ratio</a>, <a href="../glossary/#max-drawdown">maximum drawdown</a> and <a href="../glossary/#walk-forward">walk-forward analysis</a> are explained in plain language in the <a href="../glossary/">glossary</a> — 64 definitions, no prior knowledge assumed. Dotted underlines in this article link straight to the relevant entry.</p>
-
 <h2>The idea</h2>
 
 <p>Dual Momentum, in Antonacci's Global Equities Momentum (GEM) formulation, asks two questions once a month and then does nothing for the rest of it. First, <strong><a class="gl" href="../glossary/#absolute-momentum">absolute momentum</a></strong>: has the stock market beaten cash over the past 12 months? If not, hold bonds. Second, <strong><a class="gl" href="../glossary/#relative-momentum">relative momentum</a></strong>: if stocks are winning, hold whichever of US or international equities has the stronger 12-month return.</p>
 
 <p>That is the entire strategy. One <a class="gl" href="../glossary/#lookback">lookback</a>, one <a class="gl" href="../glossary/#rebalance">rebalance</a> a month, one position at a time.</p>
 
-<p>The inefficiency it leans on is the best-documented one in empirical finance. Assets that have outperformed over the past 6–12 months tend to keep outperforming for the next 1–12 months (Jegadeesh &amp; Titman, 1993; Moskowitz, Ooi &amp; Pedersen, 2012). The usual explanations are behavioural — investors under-react to news, then herd into it — plus the structural fact that bear markets tend to unfold over months rather than days, which gives a slow 12-month filter time to step aside.</p>
+<p>The inefficiency it leans on — <a class="gl" href="../glossary/#momentum">momentum</a> — is the best-documented one in empirical finance. Assets that have outperformed over the past 6–12 months tend to keep outperforming for the next 1–12 months (Jegadeesh &amp; Titman, 1993; Moskowitz, Ooi &amp; Pedersen, 2012). The usual explanations are behavioural — investors under-react to news, then herd into it — plus the structural fact that bear markets tend to unfold over months rather than days, which gives a slow 12-month filter time to step aside.</p>
 
 <p>GEM combines two separate effects. Relative momentum harvests the cross-sectional premium; absolute momentum is a <a class="gl" href="../glossary/#trend-filter">trend filter</a>. Keep that distinction in mind, because the robustness section shows that one of the two does essentially all the work.</p>
 
