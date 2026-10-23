@@ -7,7 +7,15 @@
   <description>Systematic trading strategies backtested properly: exact rules, full metrics, robustness checks, and all the code. One strategy per article.</description>
   <language>en-us</language>
   <managingEditor>abhinav.neo@gmail.com (Abhinav Taduka)</managingEditor>
-  <lastBuildDate>Thu, 22 Oct 2026 16:30:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 23 Oct 2026 18:00:00 GMT</lastBuildDate>
+  <item>
+    <title>The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</title>
+    <link>https://algostrategylab.github.io/sma-trend-filter/</link>
+    <guid isPermaLink="true">https://algostrategylab.github.io/sma-trend-filter/</guid>
+    <pubDate>Fri, 23 Oct 2026 18:00:00 GMT</pubDate>
+    <author>abhinav.neo@gmail.com (Abhinav Taduka)</author>
+    <description>Mebane Faber's 10-month moving average filter backtested over 1987-2026 with realistic costs and next-close execution, then put head to head with 12-month absolute momentum. The two filters agree on 88 percent of months; the moving average switches 48 times to momentum's 27 and gives up 1.2 points a year to whipsaw. Every moving-average length longer than 10 months produced a higher return, a higher Sharpe and less trading. Includes component variants, a hysteresis band sweep, an in-sample/out-of-sample split at the 2007 publication date and an anchored walk-forward. All code and result files public.</description>
+  </item>
   <item>
     <title>I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</title>
     <link>https://algostrategylab.github.io/dual-momentum/</link>

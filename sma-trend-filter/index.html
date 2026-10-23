@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</title>
+<meta name="description" content="Faber's 10-month moving average filter backtested over 1987-2026 and put head to head with 12-month absolute momentum. They agree 88% of the time, it trades twice as often, and the famous number is the wrong one.">
+<meta name="author" content="Abhinav Taduka">
+<link rel="canonical" href="https://algostrategylab.github.io/sma-trend-filter/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.">
+<meta property="og:description" content="It agrees with absolute momentum 88% of the time, trades twice as often, and 10 months is the wrong number.">
+<meta property="og:image" content="https://algostrategylab.github.io/assets/charts/c2_signals.png">
+<meta property="og:url" content="https://algostrategylab.github.io/sma-trend-filter/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Strategy Lab</a>
+  <nav><a href="../">All strategies</a><a href="../glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab">GitHub</a><a href="../feed.xml">RSS</a></nav>
+</div></header>
+
+<div class="wrap">
+<article>
+
+<h1>The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</h1>
+
+<p class="deck">It agrees with the momentum filter from the last article 88% of the time, trades twice as often to do it, and the famous number turns out to be the wrong one.</p>
+
+<p class="byline">Abhinav Taduka &middot; 23 October 2026 &middot; Strategy Lab #2</p>
+
+<p>If you have read anything about tactical asset allocation, you have met this rule. Each month, compare the S&amp;P 500's price to its 10-month moving average. Above it, hold stocks. Below it, hold bonds or cash. Mebane Faber's 2007 paper made it the default starting point for a generation of retail systematic investors, and it is the engine inside a large share of the "trend following for normal people" content published since.</p>
+
+<p><a href="../dual-momentum/">Last time</a> I found that Dual Momentum's entire contribution came from its <a class="gl" href="../glossary/#absolute-momentum">absolute momentum</a> test — a different <a class="gl" href="../glossary/#trend-filter">trend filter</a>, built on 12-month returns rather than a moving average. I promised to find out whether the moving average does anything that filter does not.</p>
+
+<p>The short answer, over 39.8 years of daily data: <strong>no, and it charges you for the privilege.</strong> The two filters make the same call 88% of the time. The moving average version switches 48 times to momentum's 27, gives up 1.2 percentage points a year, and ends with $35 per dollar invested against momentum's $55.</p>
+
+<p>But the more useful finding is the one nobody mentions: <strong>10 months is close to the worst setting you could pick.</strong> Every longer average I tested beat it, on both return and Sharpe, while trading less.</p>
+
+<p class="note"><strong>New to systematic trading?</strong> Terms like <a href="../glossary/#cagr">CAGR</a>, <a href="../glossary/#sharpe">Sharpe ratio</a>, <a href="../glossary/#whipsaw">whipsaw</a> and <a href="../glossary/#walk-forward">walk-forward analysis</a> are explained in plain language in the <a href="../glossary/">glossary</a> — 64 definitions, no prior knowledge assumed. Dotted underlines link straight to the relevant entry.</p>
+<h2>The rule, exactly as backtested</h2>
+
+<p>On the last trading day of each month, using month-end closes:</p>
+
+<ol>
+<li>Compute the 10-month simple moving average of the S&amp;P 500's month-end closes.</li>
+<li>If the latest close is <em>above</em> that average, hold 100% equities.</li>
+<li>If it is at or below, hold 100% US aggregate bonds.</li>
+<li>Execute at the next trading day's close. Hold until the next month-end.</li>
+</ol>
+
+<p>Faber's original used cash as the defensive asset and applied the rule across five asset classes. I use bonds here so the comparison against Dual Momentum's absolute-momentum test is apples to apples — that rule also parks in bonds. The T-bill version is reported in the variants table below, and it is worse.</p>
+
+<figure><img src="../assets/tables/sma_t_setup.png" alt="Backtest setup: Yahoo Finance daily closes, January 1987 to October 2026, monthly rebalance, next-close execution, 10 bps costs"></figure>
+
+<p><strong>One warm-up detail that matters more than it sounds.</strong> A 10-month average needs ten months of history before it exists. If you start the price series at the safe asset's inception, the filter is undefined for the first ten months and the strategy sits in bonds through whatever the market does. In my first run that artifact alone turned 1987 into a 31% loss, because the rule missed the rally and then bought in just before the October crash. A real investor in January 1987 had seven years of S&amp;P history, so the <a class="gl" href="../glossary/#backtest">backtest</a> loads price data from 1980 and only evaluates from 1987. If you build this yourself, check that first.</p>
+
+<h2>Results</h2>
+
+<p>Over 39.8 years, the moving-average filter returned 9.38% a year against 10.61% for absolute momentum and 11.24% for simply holding the index. All three ended with very different risk: the filters cut <a class="gl" href="../glossary/#max-drawdown">maximum drawdown</a> from 55% to around 34%.</p>
+
+<figure><img src="../assets/tables/sma_t_headline.png" alt="Head-to-head table comparing the 10-month SMA filter, 12-month absolute momentum, the S&amp;P 500 and 60/40"></figure>
+
+<figure>
+<img src="../assets/charts/c1_equity.png" alt="Growth of $1 from 1987 to 2026 on a log scale for the SMA filter, absolute momentum, the S&amp;P 500 and 60/40">
+<figcaption>Both filters track the index closely for long stretches, separate during bear markets, and never fully catch up afterwards.</figcaption>
+</figure>
+
+<p>Note what this table does <em>not</em> show: a filter beating the market. Neither does. This is the same conclusion as the last article — a trend filter is a risk-management tool that happens to roughly keep pace, not a way to earn more. The 60/40 column is there as a reminder that a plain static allocation got a better <a class="gl" href="../glossary/#sharpe">Sharpe ratio</a> than either filter, with no trading at all.</p>
+
+<h2>Are they even different filters?</h2>
+
+<p>This is the question the article exists to answer, and the clearest way to see it is to plot what each filter was doing, month by month, for forty years.</p>
+
+<figure>
+<img src="../assets/charts/c2_signals.png" alt="Timeline showing when each filter was risk-on or risk-off from 1987 to 2026, with disagreements highlighted, above a drawdown chart">
+<figcaption>Coloured means risk-on, grey means in bonds. The big grey blocks — 2001–03, 2008–09, 2022 — are nearly identical. Red marks the months they disagreed.</figcaption>
+</figure>
+
+<p>The two filters agreed on 88% of the 478 months. More importantly, they agreed on all the months that mattered: both sat out most of the dot-com bust, both sat out the financial crisis, both were fully invested through the 2020 crash. The disagreements are thin slivers at the edges of regime changes.</p>
+
+<figure><img src="../assets/tables/sma_t_agreement.png" alt="Table of agreement statistics between the two filters"></figure>
+
+<p>When they did disagree, neither was reliably right. The moving average won 62% of those months and momentum 53% — on samples of 26 and 32 months, which is far too small to call a winner. But the <em>size</em> of the calls differed: in months when only momentum was invested, equities returned 3.1% on average; when only the moving average was invested, 1.6%. Momentum's rare solo bets were worth about twice as much.</p>
+
+<figure><img src="../assets/tables/sma_t_disagree.png" alt="The longest disagreement episodes and which filter was right"></figure>
+
+<p>So the gap between the two strategies is not explained by better calls. It is explained by <strong>how often each one trades</strong>. The moving average switched 48 times against momentum's 27, holding a position for 209 days on average against 371. Every one of those extra switches is a chance to sell low and buy back higher — <a class="gl" href="../glossary/#whipsaw">whipsaw</a> — and in aggregate they cost about 1.2 points a year.</p>
+
+<h2>When it works, when it bleeds</h2>
+
+<figure><img src="../assets/tables/sma_t_episodes.png" alt="Performance of both filters and the S&amp;P 500 across eleven major market episodes from 1987 to 2026"></figure>
+
+<p><strong>The good.</strong> The dot-com bust is the showcase: the moving average returned +11.6% while the index lost 47%, because the signal turned negative in late 2000 and stayed negative for two years. The financial crisis is almost as good, –3.5% against –54.9%. These are the slow, grinding declines a monthly filter is built for, and it did its job.</p>
+
+<p><strong>The bad.</strong> October 1987 is the clearest lesson in the whole series. Both filters were fully invested going into Black Monday, both sold at the month-end immediately after, and both finished the episode down 24.1% — <em>worse</em> than the 19.5% you would have lost doing nothing. A monthly rule cannot react to a one-day crash, and selling at the bottom of one converts a recoverable loss into a locked-in one. The same pattern repeats, less dramatically, in 2020.</p>
+
+<p>2022 is the other instructive failure: the moving average lost 26.6%, worse than both momentum (–19.2%) and the index (–24.1%), because it flipped in and out three times while bonds were falling alongside stocks. A trend filter whose defensive asset is also trending down has nowhere to hide.</p>
+
+<figure><img src="../assets/tables/sma_t_drawdowns.png" alt="The five deepest drawdowns of the 10-month SMA filter"></figure>
+
+<h2>Robustness</h2>
+
+<h3>1. The famous number is the wrong number</h3>
+
+<p>Faber's paper used 10 months, and essentially everyone who followed copied it. Over this window, that is close to the worst choice available.</p>
+
+<figure><img src="../assets/charts/c3_lookback.png" alt="Bar charts of CAGR, Sharpe and turnover across moving-average lengths from 6 to 16 months"></figure>
+
+<p>Every setting longer than 10 months produced a higher return, a higher Sharpe <em>and</em> less trading. At 16 months the filter returns 11.27% — effectively matching buy-and-hold while keeping the drawdown protection — on a third less turnover than the 10-month version.</p>
+
+<p>Two honest caveats. First, this is a single 40-year sample; a monotonic ranking across six settings is suggestive, not proof. Second, I am reading this chart <em>after</em> seeing it, which is exactly the hindsight the <a class="gl" href="../glossary/#walk-forward">walk-forward test</a> below exists to control for. What I would not do is claim 16 is the right number — the defensible claim is narrower: the evidence for 10 specifically is weak, and the cost of being wrong about it is around two points a year.</p>
+
+<h3>2. A buffer fixes about half the gap</h3>
+
+<p>If the problem is too much switching, the standard remedy is hysteresis: require the price to clear the average by some margin before buying back, and to fall below it by the same margin before selling. This is a one-parameter change.</p>
+
+<figure>
+<img src="../assets/charts/c4_band.png" alt="Scatter of CAGR against annual turnover for buffer widths from 0% to 5%">
+<figcaption>Each point is a buffer width. Widening it to 3% cuts turnover almost in half and adds 1.3 points of annual return.</figcaption>
+</figure>
+
+<p>A 3% band takes the strategy from 9.38% to 10.68% and cuts turnover from 239% to 128% — roughly closing the gap to absolute momentum, which is itself a slower-moving signal. That is the real lesson: <strong>most of the moving average's underperformance is trading friction, not bad judgment</strong>, and anything that makes it slower helps. Past 3% the buffer starts costing more in late entries than it saves in whipsaw.</p>
+
+<h3>3. Before and after publication</h3>
+
+<p>Faber published in 2007. Splitting there, with no refitting:</p>
+
+<figure><img src="../assets/charts/c5_inout.png" alt="Bar chart comparing CAGR, Sharpe and maximum drawdown before and after 2007"></figure>
+
+<p>Before: 11.29% a year against the index's 11.63%, with drawdown cut from 48% to 33% — a good risk-adjusted outcome. After: 7.36% against 10.85%, trailing by 3.5 points a year. The same post-publication decay that Dual Momentum showed, and for the same reason — the second half simply contained fewer of the slow bear markets this kind of rule is built to catch.</p>
+
+<h3>4. Walk-forward, and a surprise</h3>
+
+<p>Re-choosing the moving-average length each year from the best of the previous five years, then trading it out-of-sample for the next year, across 34 annual windows from 1992:</p>
+
+<figure><img src="../assets/tables/sma_t_walkforward.png" alt="Walk-forward results: optimised 9.27%, fixed 10-month 8.47%, S&amp;P 500 10.58%"></figure>
+
+<p>This is the opposite of what happened in the last article, where optimising made Dual Momentum worse. Here it helped, by 0.8 points a year. The reason is visible in the sweep chart: the moving average's parameter surface slopes in one direction rather than wandering, so an optimiser looking backwards keeps choosing longer windows and keeps being right. When a parameter has a real gradient, fitting it works. When it is noise, fitting it fails. The same test tells you which situation you are in — which is the whole argument for running it.</p>
+
+<h3>5. Does combining them help?</h3>
+
+<figure><img src="../assets/tables/sma_t_variants.png" alt="Table of every variant tested including AND, OR, and the T-bill version"></figure>
+
+<p>Requiring both filters to agree before investing (AND) makes things worse — 8.41%, the weakest variant tested — because it inherits both filters' late entries. Investing when <em>either</em> is positive (OR) produced the best numbers in the whole study: 11.59% a year at a 0.81 Sharpe with the drawdown still capped at 33.8%, the only variant to beat buy-and-hold on return while halving the risk.</p>
+
+<p>I would treat that result with suspicion rather than enthusiasm. It is the best of roughly a dozen variants I examined, which is exactly the setup that manufactures false positives, and the mechanism is mundane — OR is simply a slower, more reluctant filter, which is the same thing the buffer and the longer lookback achieved. I would want to see it hold on international indices and on a different era before trading it.</p>
+
+<h2>What I'd change before trading this</h2>
+
+<p><strong>Don't use 10 months.</strong> It is the weakest defensible setting in the range, and its popularity comes from one influential paper rather than from any evidence that it is optimal. Something in the 12–16 month range, or a buffer around the 10-month average, recovers most of the lost return and trades less.</p>
+
+<p><strong>Expect no help in fast crashes.</strong> 1987 and 2020 both show the filter fully invested at the bottom, then selling into it. If that matters, the fix is not a shorter average — shorter was worse at every length I tested — but a second, faster overlay accepting more whipsaw.</p>
+
+<p><strong>Check your defensive asset.</strong> The T-bill version returns 8.31% against the bond version's 9.38%, and 2022 showed bonds are not always safe either. A rule that compares bonds against T-bills before parking in them would have helped in both regimes.</p>
+
+<p><strong>And consider not using this one at all.</strong> On this evidence the 12-month absolute momentum test does the same job with less trading and better numbers. If you want a single trend filter, that is the one I would take — which is a slightly deflating conclusion for the most famous rule in the field, but it is what forty years of data says.</p>
+
+<h2>The code</h2>
+
+<p>Everything here runs on the same open-source harness as the rest of the series — a <code>Strategy</code> interface, one-day-lagged execution, a flat cost model, and the robustness helpers used above. Each run writes a single JSON file with every metric, which is what these charts and tables were rendered from.</p>
+
+<pre><code>pip install -r requirements.txt
+python run.py          # regenerates every number above, ~3 minutes
+python make_charts.py  # regenerates every chart</code></pre>
+
+<ul>
+<li><a href="https://github.com/AlgoStrategyLab/sma-trend-filter">AlgoStrategyLab/sma-trend-filter</a> — this strategy, with every output file committed</li>
+<li><a href="https://github.com/AlgoStrategyLab/strategylab-core">AlgoStrategyLab/strategylab-core</a> — the shared engine, MIT licensed</li>
+</ul>
+
+<p><strong>Next up:</strong> Donchian channel breakout — the rule the original Turtle traders used — and whether a 1980s futures system survives contact with modern equity indices.</p>
+
+<hr>
+
+<p class="note"><strong>References.</strong> Faber, M. (2007), "A Quantitative Approach to Tactical Asset Allocation", <em>Journal of Wealth Management</em>. Antonacci, G. (2014), <em>Dual Momentum Investing</em>. Moskowitz, Ooi &amp; Pedersen (2012), "Time Series Momentum", <em>Journal of Financial Economics</em>. Data: Yahoo Finance adjusted closes, retrieved 23 October 2026.</p>
+
+<p class="note">This is research and education, not investment advice. Backtests benefit from hindsight in instrument choice and start date, and past performance does not predict future results.</p>
+
+</article>
+</div>
+
+<footer class="site"><div class="wrap">
+Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab">github.com/AlgoStrategyLab</a> &middot; <a href="../feed.xml">RSS</a>
+</div></footer>
+</body>
+</html>
