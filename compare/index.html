@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare every Strategy Lab backtest</title>
+<meta name="description" content="Every backtested strategy side by side, generated from the same engine and the same results files.">
+<meta name="author" content="Abhinav Taduka">
+<link rel="canonical" href="https://algostrategylab.github.io/compare/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Compare every Strategy Lab backtest">
+<meta property="og:description" content="Every backtested strategy side by side, generated from the same engine and the same results files.">
+<meta property="og:image" content="https://algostrategylab.github.io/assets/charts/">
+<meta property="og:url" content="https://algostrategylab.github.io/compare/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Strategy Lab</a>
+  <nav><a href="../">All strategies</a><a href="../glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab/strategy-lab">GitHub</a><a href="../feed.xml">RSS</a></nav>
+</div></header>
+
+<div class="wrap">
+<article>
+<h1>Every strategy, side by side</h1>
+<p class="deck">One engine, one execution model, one cost assumption. Numbers come straight from each run's JSON, so this table cannot drift from the articles that quote it.</p>
+<table class="compare">
+<thead><tr><th>Strategy</th><th>Family</th><th>Rebalance</th><th>CAGR</th><th>Sharpe</th><th>Max DD</th></tr></thead>
+<tbody>
+<tr><td><a href="../dual-momentum/">I Backtested Dual Momentum for 29 Years</a></td><td>trend-following</td><td>monthly</td><td>10.25%</td><td>0.72</td><td>−33.83%</td></tr>
+<tr><td><a href="../sma-trend-filter/">The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing</a></td><td>trend-following</td><td>monthly</td><td>9.38%</td><td>0.71</td><td>−35.18%</td></tr>
+<tr><td><a href="../donchian-breakout/">The Turtle Traders&#x27; Rule Dodged the COVID Crash</a></td><td>trend-following</td><td>daily</td><td>5.24%</td><td>0.56</td><td>−35.83%</td></tr>
+<tr><td><a href="../rsi2-mean-reversion/">RSI(2) Wins 72% of Its Trades</a></td><td>mean-reversion</td><td>daily</td><td>3.62%</td><td>0.79</td><td>−15.69%</td></tr>
+</tbody>
+</table>
+</article>
+</div>
+
+<footer class="site"><div class="wrap">
+Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab/strategy-lab">github.com/AlgoStrategyLab</a> &middot; <a href="../feed.xml">RSS</a>
+</div></footer>
+</body>
+</html>

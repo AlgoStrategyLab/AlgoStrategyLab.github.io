@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-<channel>
-  <title>Strategy Lab</title>
-  <link>https://algostrategylab.github.io/</link>
-  <atom:link href="https://algostrategylab.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-  <description>Systematic trading strategies backtested properly: exact rules, full metrics, robustness checks, and all the code. One strategy per article.</description>
-  <language>en-us</language>
-  <managingEditor>abhinav.neo@gmail.com (Abhinav Taduka)</managingEditor>
-  <lastBuildDate>Thu, 29 Oct 2026 18:00:00 GMT</lastBuildDate>
-  <item>
-    <title>The Turtle Traders' Rule Dodged the COVID Crash. It Also Turned $1 into $8 Instead of $70.</title>
-    <link>https://algostrategylab.github.io/donchian-breakout/</link>
-    <guid isPermaLink="true">https://algostrategylab.github.io/donchian-breakout/</guid>
-    <pubDate>Thu, 29 Oct 2026 18:00:00 GMT</pubDate>
-    <author>abhinav.neo@gmail.com (Abhinav Taduka)</author>
-    <description>Donchian channel breakout - the rule taught to the Turtle traders - backtested on the S&amp;P 500 from 1987 to 2026 with daily evaluation and next-close execution. The daily exit cut the COVID crash from -33.5% to -9.2% and the 2025 tariff shock from -19% to -2%, something no monthly trend filter can do at any parameter setting. But it turned $1 into $7.60 against $70 for buy-and-hold: the breakout signal has no predictive content (67.1% of breakouts were followed by a higher price 20 days later, against a 65.1% base rate, and a lower average return than a random day), it trades 24 times a year, and no cell in the entry/exit grid beats the index. Includes volatility sizing, a six-asset diversification test, an in-sample/out-of-sample split at the 2003 publication of the rules, and an anchored walk-forward. All code and result files public.</description>
-  </item>
-  <item>
-    <title>The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</title>
-    <link>https://algostrategylab.github.io/sma-trend-filter/</link>
-    <guid isPermaLink="true">https://algostrategylab.github.io/sma-trend-filter/</guid>
-    <pubDate>Fri, 23 Oct 2026 18:00:00 GMT</pubDate>
-    <author>abhinav.neo@gmail.com (Abhinav Taduka)</author>
-    <description>Mebane Faber's 10-month moving average filter backtested over 1987-2026 with realistic costs and next-close execution, then put head to head with 12-month absolute momentum. The two filters agree on 88 percent of months; the moving average switches 48 times to momentum's 27 and gives up 1.2 points a year to whipsaw. Every moving-average length longer than 10 months produced a higher return, a higher Sharpe and less trading. Includes component variants, a hysteresis band sweep, an in-sample/out-of-sample split at the 2007 publication date and an anchored walk-forward. All code and result files public.</description>
-  </item>
-  <item>
-    <title>I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</title>
-    <link>https://algostrategylab.github.io/dual-momentum/</link>
-    <guid isPermaLink="true">https://algostrategylab.github.io/dual-momentum/</guid>
-    <pubDate>Thu, 22 Oct 2026 16:30:00 GMT</pubDate>
-    <author>abhinav.neo@gmail.com (Abhinav Taduka)</author>
-    <description>Gary Antonacci's Global Equities Momentum backtested over 1997-2026 with realistic costs and next-close execution. Before the book was published it beat the S&amp;P 500 by 5.1 points a year; after, it trailed by 5.4. Includes the exact rules, 90+ metrics against the S&amp;P 500, component ablation, lookback sensitivity, an in-sample/out-of-sample split and an anchored walk-forward. All code and result files public.</description>
-  </item>
-</channel>
-</rss>
+<rss version="2.0"><channel>
+<title>Strategy Lab</title>
+<link>https://algostrategylab.github.io/</link>
+<description>Systematic trading strategies, backtested properly.</description>
+<language>en</language>
+<item>
+<title>RSI(2) Wins 72% of Its Trades. More Than Half of What It Earns Is T-Bill Interest.</title>
+<link>https://algostrategylab.github.io/rsi2-mean-reversion/</link>
+<guid isPermaLink="true">https://algostrategylab.github.io/rsi2-mean-reversion/</guid>
+<pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
+<description>RSI(2) mean reversion backtested on the S&amp;P 500, 1987-2026: a real signal, 72% of trades profitable, and a strategy that is invested 6% of the time and earns most of its return from Treasury bills.</description>
+</item>
+<item>
+<title>The Turtle Traders&#x27; Rule Dodged the COVID Crash. It Also Turned $1 into $8 Instead of $70.</title>
+<link>https://algostrategylab.github.io/donchian-breakout/</link>
+<guid isPermaLink="true">https://algostrategylab.github.io/donchian-breakout/</guid>
+<pubDate>Thu, 29 Oct 2026 00:00:00 +0000</pubDate>
+<description>Donchian breakout on the S&amp;P 500, 1987-2026: the fast-crash problem solved, at six points a year.</description>
+</item>
+<item>
+<title>The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</title>
+<link>https://algostrategylab.github.io/sma-trend-filter/</link>
+<guid isPermaLink="true">https://algostrategylab.github.io/sma-trend-filter/</guid>
+<pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate>
+<description>It agrees with absolute momentum 88% of the time, trades twice as often, and 10 months is the wrong number.</description>
+</item>
+<item>
+<title>I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</title>
+<link>https://algostrategylab.github.io/dual-momentum/</link>
+<guid isPermaLink="true">https://algostrategylab.github.io/dual-momentum/</guid>
+<pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate>
+<description>29 years, 90+ metrics, walk-forward validation, and all the code.</description>
+</item>
+</channel></rss>

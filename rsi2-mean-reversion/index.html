@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSI(2) Wins 72% of Its Trades. More Than Half of What It Earns Is T-Bill Interest.</title>
+<meta name="description" content="RSI(2) mean reversion backtested on the S&amp;P 500, 1987-2026: a real signal, 72% of trades profitable, and a strategy that is invested 6% of the time and earns most of its return from Treasury bills.">
+<meta name="author" content="Abhinav Taduka">
+<link rel="canonical" href="https://algostrategylab.github.io/rsi2-mean-reversion/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RSI(2) Wins 72% of Its Trades. More Than Half of What It Earns Is T-Bill Interest.">
+<meta property="og:description" content="RSI(2) mean reversion backtested on the S&amp;P 500, 1987-2026: a real signal, 72% of trades profitable, and a strategy that is invested 6% of the time and earns most of its return from Treasury bills.">
+<meta property="og:image" content="https://algostrategylab.github.io/assets/charts/rsi_c2_decomposition.png">
+<meta property="og:url" content="https://algostrategylab.github.io/rsi2-mean-reversion/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Strategy Lab</a>
+  <nav><a href="../">All strategies</a><a href="../glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab/strategy-lab">GitHub</a><a href="../feed.xml">RSS</a></nav>
+</div></header>
+
+<div class="wrap">
+<article>
+<h1>RSI(2) Wins 72% of Its Trades. More Than Half of What It Earns Is T-Bill Interest.</h1>
+<p class="deck">The most copied mean-reversion rule in retail trading, tested over 40 years. The signal is real. The strategy around it is mostly cash.</p>
+<p class="byline">Abhinav Taduka &middot; 9 November 2026 &middot; Strategy Lab #4</p>
+<p>Every strategy in this series so far has bought strength. <a href="../dual-momentum/">Dual momentum</a> buys whichever asset rose most over the last year. The <a href="../sma-trend-filter/">10-month moving average</a> buys an index that is above its own average. The <a href="../donchian-breakout/">Donchian breakout</a> buys a new 20-day high. All three hold for weeks or months, and all three bleed in choppy markets — the Donchian rule spent fourteen consecutive years underwater, almost entirely to chop rather than to any crash.</p>
+<p>So this article tests the opposite bet. RSI(2) buys weakness and holds it for days.</p>
+<p>I went in expecting a complement: a rule that earns its keep in exactly the conditions that punish trend following. That is not what the data says, and the reason is more interesting than the thesis would have been.</p>
+<p><strong>It wins 72.5% of its trades, and annualises 31.2% on the days it is actually invested</strong> — nearly three times the index. The signal is real.</p>
+<p><strong>It also returns 3.62% a year against 11.12% for doing nothing, and 54% of what it does return is interest on the cash it isn't investing.</strong></p>
+<p class="note"><strong>New to systematic trading?</strong> Terms like <a href="../glossary/#cagr">CAGR</a>, <a href="../glossary/#sharpe">Sharpe ratio</a>, <a href="../glossary/#turnover">turnover</a>, <a href="../glossary/#drawdown">drawdown</a> and <a href="../glossary/#mean-reversion">mean reversion</a> are explained in plain language in the <a href="../glossary/">glossary</a> — no prior knowledge assumed. Dotted underlines link straight to the relevant entry.</p>
+<h2>The rule, exactly as backtested</h2>
+<p>Larry Connors and Cesar Alvarez published this in <em>Short Term Trading Strategies That Work</em> in 2008. It has been copied into retail trading content ever since, usually without a cost assumption attached.</p>
+<p>Every trading day, using closing prices:</p>
+<ul>
+<li>If flat, and the close is <strong>above</strong> the 200-day simple moving average, and the 2-period <a class="gl" href="../glossary/#rsi">RSI</a> closes <strong>below 5</strong>, buy equities.</li>
+<li>If long, and the close is <strong>above</strong> the 5-day simple moving average, sell and return to cash.</li>
+<li>Otherwise do nothing.</li>
+<li>Execute at the next day's close.</li>
+</ul>
+<figure><img src="../assets/tables/rsi_t_setup.png" alt="Backtest setup: Yahoo Finance daily closes, January 1987 to November 2026, daily evaluation, next-close execution, 10 bps costs"></figure>
+
+<p>A 2-period RSI is an unusual object. Wilder's smoothing constant at n=2 is one half, so the indicator reacts almost entirely to the last two closes. Dropping below 5 means roughly "the last two days were almost all down" — it is a short-term oversold trigger, not a trend measure. Capital sits in T-bills while flat, which matters more than it sounds like it should.</p>
+<h2>Results</h2>
+<figure><img src="../assets/tables/rsi_t_headline.png" alt="Headline table comparing RSI(2) against the 10-month SMA filter, 60/40 and the S&amp;P 500"></figure>
+
+<figure><img src="../assets/charts/rsi_c1_equity.png" alt="Forty years of compounding. The flat stretches are not drawdowns — they are the 94% of the time the strategy holds no equities at all."></figure>
+
+<p>The Sharpe ratio of 0.79 is the best in the series so far, better than the index's 0.67, and the maximum drawdown of −15.7% is less than a third of the index's −55.2%. On the ratios alone this is the best-behaved strategy I have tested.</p>
+<p>It also finished with less than a tenth of the money.</p>
+<h2>Where the return actually comes from</h2>
+<p>The strategy is invested on 607 of 10,039 trading days — 6.0% of the record. Comparing its CAGR with buy-and-hold is therefore close to meaningless: for 94% of the period the two are not doing the same kind of thing at all.</p>
+<p>Split the return into the part earned while invested and the part earned while sitting in T-bills:</p>
+<figure><img src="../assets/charts/rsi_c2_decomposition.png" alt="The strategy&#x27;s own trades contributed less than the Treasury bills did."></figure>
+
+<figure><img src="../assets/tables/rsi_t_exposure.png" alt="Exposure statistics: days invested, growth while invested, and average daily return in and out of the market"></figure>
+
+<p>Annualised over the days it holds equities, the strategy returns 31.2%. That is a genuinely strong number and it is not an artifact — it survives costs, and the per-trade statistics agree with it.</p>
+<p>But the trades contributed 1.66% a year to the total, and the cash contributed 1.94%. Most of what this strategy earned over forty years, it earned by not trading.</p>
+<p>That reframes what the low drawdown means. A maximum drawdown of −15.7% against the index's −55.2% is not evidence of skilful risk management. It is what happens when you are absent.</p>
+<h2>The signal is good. The trend filter removes the best half of it.</h2>
+<p>It is worth separating the two components, because the usual explanation for the 200-day filter — that it keeps you out of bad trades — turns out to be wrong.</p>
+<figure><img src="../assets/tables/rsi_t_edge.png" alt="Forward 5-day returns after each condition, against the unconditional base rate"></figure>
+
+<p>On any given day the S&amp;P returned 0.24% over the following five days, and was higher 58.6% of the time. After RSI(2) closes below 5, the next five days returned 0.61% — more than twice the base rate, across 474 occurrences. Short-term mean reversion in US equities is real and it is not subtle.</p>
+<p>Now split those occurrences by the trend filter. Oversold <strong>above</strong> the 200-day average: 0.48% over the next five days. Oversold <strong>below</strong> it: 0.81%.</p>
+<p>The setups the filter discards are the better ones. Buying a two-day collapse in a market that is already in a downtrend paid almost twice as well as buying one in an uptrend.</p>
+<p>The filter still earns its place, but for a different reason than advertised:</p>
+<figure><img src="../assets/tables/rsi_t_components.png" alt="Each component switched off in turn"></figure>
+
+<p>Without the filter, CAGR barely moves but the Sharpe falls from 0.79 to 0.47 and the drawdown deepens from −15.7% to −23.6%. The filter is not selecting better trades. It is declining to catch falling knives during the one or two episodes per decade when the knife keeps falling, and paying for that insurance with the highest-returning setups in the sample.</p>
+<p>Note also the fourth row. The 200-day filter <strong>on its own</strong>, with no RSI at all and no attempt at timing entries, returned 7.79% — more than double the full strategy. Almost everything this rule does to returns, it does by being out of the market.</p>
+<h2>The cost cliff</h2>
+<p>At 1790% annual turnover, this strategy is a bet on your cost structure more than on the market.</p>
+<figure><img src="../assets/charts/rsi_c4_costs.png" alt="Each basis point of round-trip cost removes roughly 0.19 points of annual return."></figure>
+
+<figure><img src="../assets/tables/rsi_t_costs.png" alt="Cost sensitivity from frictionless to 100 bps"></figure>
+
+<p>Frictionless it returns 5.49%. At 10 bps, 3.62%. At 25 bps, 0.87%. At 50 bps it is −3.58% — the strategy destroys capital. Nothing about the signal changed; only the bill did.</p>
+<p>This is the same finding as the Donchian article, and it is becoming the most reliable result in the series: any rule that trades often is, in practice, a wager that your execution is cheap. Published backtests almost never say so.</p>
+<h2>A trap in the parameter grid</h2>
+<p>The grid holds something worth stopping on, because it is a mistake I have seen in published strategy write-ups and nearly made here.</p>
+<figure><img src="../assets/charts/rsi_c5_sharpe_trap.png" alt="The highest Sharpe ratios in the grid belong to settings that are almost never invested."></figure>
+
+<p>The best Sharpe in the entire grid is 6.9, with a maximum drawdown of 0.59%. It comes from RSI(5) below 5, which triggered on four days in forty years. The second best, 6.0, triggered on seven. These are not strategies; they are rounding errors with a ratio attached.</p>
+<p>A Sharpe ratio says nothing about whether the opportunity exists often enough to matter, and optimising for it across a grid will reliably hand you the setting that trades least. The published setting — RSI(2) below 5 — sits in the middle of the cloud at a Sharpe of 0.79 with 6.0% exposure, which is the honest region of the chart.</p>
+<p>Any parameter search over a rule like this needs a minimum-exposure or minimum-trade-count floor, or the optimiser will walk straight off the edge.</p>
+<h2>Before and after the book</h2>
+<p>This is the third strategy in the series to be tested against its own publication date, and the third to fail.</p>
+<figure><img src="../assets/charts/rsi_c3_inout.png" alt="The split is at January 2009, just after the book appeared."></figure>
+
+<figure><img src="../assets/tables/rsi_t_inout.png" alt="Performance before and after publication, with the index for comparison"></figure>
+
+<p>Before 2009: 5.44% a year at a Sharpe of 1.35, with a worst drawdown of −5.1%. That is an outstanding record.</p>
+<p>After 2009: 1.41% a year at a Sharpe of 0.29, with a drawdown three times deeper.</p>
+<p>The index moved the other way over the same split, from 8.48% to 14.48%. So this is not a story about a harder market. Whatever this rule was capturing, it captured much less of it after it was printed in a bestseller.</p>
+<p>I cannot separate publication from the other things that changed in 2009 — decimalisation had already happened, but high-frequency market making scaled up over exactly this window, and short-horizon mean reversion is precisely the inefficiency that activity arbitrages away. Publication and competition are confounded here, and I would not claim otherwise.</p>
+<h2>The thesis I set out to test, and why it failed</h2>
+<p>The premise was straightforward: trend following bleeds in chop, mean reversion should feed on it, so the two ought to be complements. The Donchian article left a specific window to test against — January 1999 to May 2013, the fourteen years that rule spent underwater, caused by chop rather than any crash.</p>
+<figure><img src="../assets/charts/rsi_c6_regimes.png" alt="The chop window at the far left is the test. RSI(2) did not win it."></figure>
+
+<figure><img src="../assets/tables/rsi_t_regimes.png" alt="Total return through each episode"></figure>
+
+<p>Through that window RSI(2) returned 41.9%. The index returned 70.8% and the monthly SMA filter — a trend system — returned 279.3%. The strategy that was supposed to thrive in chop came last by a wide margin.</p>
+<p>What it does do is survive. Through the dot-com bust it returned 12.5% while the index lost −47.4%; through the financial crisis, 3.7% against −54.9%; through the 2022 bear market, 2.2% against −24.1%. Those look like brilliant defensive numbers until you remember the exposure table. It survived those episodes the way a savings account survives them.</p>
+<p>The complementarity thesis fails because mean reversion and trend following are not opposites in the way the framing suggests. Both need direction. A trend system needs price to keep going; this rule needs price to snap back. A genuinely rangebound market — the 1999–2013 window — delivers neither reliably, so both rules spend it paying costs for round trips that go nowhere. Chop is not the trend follower's enemy and the mean reverter's friend. It is just hostile.</p>
+<h2>What I'd take from this</h2>
+<p>The signal is the most interesting thing here and it is not the strategy. Short-term oversold conditions in US equities really do predict higher forward returns, by a margin that is large and that persisted across 474 occurrences over forty years. 72.5% of trades were winners, over 178 of them, at an average holding period of 3.4 days.</p>
+<p>What the strategy does with that signal is where it falls apart. It is right often and paid little for being right — the average winner is 1.37% against an average loser of −1.49%, a payoff ratio below one. It is invested too rarely for the edge to compound into anything. And it trades often enough that execution cost, not the signal, determines the outcome.</p>
+<p>If I were trying to use this, I would not trade it as published. I would treat RSI(2) as an <strong>overlay on a position I already hold</strong> rather than as a standalone system — scaling exposure up on oversold closes rather than moving between equities and cash — which keeps the signal's value without paying to re-enter the market from scratch every few days, and without leaving 94% of the period in T-bills. That is a different article, and the honest thing to say is that I have not tested it yet.</p>
+<h2>Caveats worth stating plainly</h2>
+<p>This is a long-only, single-index, fully-invested-or-flat implementation. Connors' own work applies the rule across many stocks and ETFs simultaneously, which changes the exposure arithmetic completely: twenty uncorrelated instruments each invested 6% of the time is a portfolio that is usually holding something. That is the strongest version of the argument against the conclusion here, and this backtest does not address it.</p>
+<p>The cash return is real but period-specific. T-bills averaged a little under 3% over this window; a decade of zero rates would remove most of the contribution I just attributed to cash, and the strategy's total return with it.</p>
+<p>The 5-day exit is one of several published variants, and the grid shows the result is not fragile to it — exiting on RSI(2) above 65 does slightly better, a fixed 5-day hold slightly worse. Entry at RSI below 10 rather than 5, which is the more commonly quoted version, roughly doubles the exposure and halves the Sharpe.</p>
+<p>And as always: this is one market over one history, with instrument choice and start date selected with hindsight.</p>
+<h2>The code</h2>
+<p>Same open-source harness as the rest of the series. The engine's daily rebalancing, added for article #3, is what makes a rule that holds for three days testable at all. Each run writes a single JSON file with every metric, which is what these charts and tables were rendered from.</p>
+<pre><code>pip install -r requirements.txt
+python strategies/rsi2-mean-reversion/run.py
+python strategies/rsi2-mean-reversion/make_charts.py</code></pre>
+<p><strong>Code:</strong> <a href="https://github.com/AlgoStrategyLab/strategy-lab/tree/main/strategies/rsi2-mean-reversion">strategy-lab/strategies/rsi2-mean-reversion</a> &mdash; this strategy, with every output file committed. <strong>Engine:</strong> <a href="https://github.com/AlgoStrategyLab/strategy-lab">AlgoStrategyLab/strategy-lab</a> &mdash; the shared harness, MIT licensed.</p>
+<p><strong>Next up:</strong> pairs trading — the first strategy in this series that does not need the market to go anywhere at all, and the first where the hard part is deciding what counts as a pair.</p>
+<hr>
+<p class="note"><strong>References.</strong> Connors, L. &amp; Alvarez, C. (2008), <em>Short Term Trading Strategies That Work</em>. Wilder, J. W. (1978), <em>New Concepts in Technical Trading Systems</em> — the original RSI. Faber, M. (2007), "A Quantitative Approach to Tactical Asset Allocation". Antonacci, G. (2014), <em>Dual Momentum Investing</em>. Data: Yahoo Finance adjusted closes, retrieved 9 November 2026.</p>
+<p class="note">This is research and education, not investment advice. Backtests benefit from hindsight in instrument choice and start date, and past performance does not predict future results.</p>
+</article>
+</div>
+
+<footer class="site"><div class="wrap">
+Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab/strategy-lab">github.com/AlgoStrategyLab</a> &middot; <a href="../feed.xml">RSS</a>
+</div></footer>
+</body>
+</html>

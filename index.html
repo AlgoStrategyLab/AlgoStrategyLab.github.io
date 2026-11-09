@@ -3,57 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Strategy Lab — backtested quant strategies</title>
-<meta name="description" content="Systematic trading strategies backtested properly: exact rules, full metrics, robustness checks, and all the code. One strategy per article.">
+<title>Strategy Lab — backtested systematic strategies</title>
+<meta name="description" content="Systematic trading strategies backtested with full robustness testing and open code.">
+<meta name="author" content="Abhinav Taduka">
 <link rel="canonical" href="https://algostrategylab.github.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Strategy Lab — backtested quant strategies">
-<meta property="og:description" content="Systematic trading strategies backtested properly: exact rules, full metrics, robustness checks, and all the code.">
-<meta property="og:image" content="https://algostrategylab.github.io/assets/charts/chart1_equity.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Strategy Lab — backtested systematic strategies">
+<meta property="og:description" content="Systematic trading strategies backtested with full robustness testing and open code.">
+<meta property="og:image" content="https://algostrategylab.github.io/assets/charts/">
+<meta property="og:url" content="https://algostrategylab.github.io/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="site"><div class="wrap">
-  <a class="brand" href="./">Strategy Lab</a>
-  <nav><a href="glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab">GitHub</a><a href="feed.xml">RSS</a></nav>
+  <a class="brand" href="">Strategy Lab</a>
+  <nav><a href="">All strategies</a><a href="glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab/strategy-lab">GitHub</a><a href="feed.xml">RSS</a></nav>
 </div></header>
 
 <div class="wrap">
-<p class="lede" style="margin-bottom:8px"><strong>Systematic trading strategies, backtested properly.</strong></p>
-<p class="lede" style="margin-top:0">Each article takes one well-known strategy and gives it the treatment it rarely gets: the exact rules, a full metric sheet against a benchmark, and the robustness tests that decide whether the result means anything — parameter sensitivity, in-sample versus out-of-sample, and walk-forward. Every backtest runs on the same open-source engine and free data, and every result file is committed to GitHub, so you can reproduce or refute any number here.</p>
-
-<p class="lede">New to this? The <a href="glossary/">glossary</a> defines every term used across the series in plain language.</p>
-
-<p class="lede">Written by Abhinav Taduka. Code at <a href="https://github.com/AlgoStrategyLab">github.com/AlgoStrategyLab</a>.</p>
-
-<hr>
-
-<ul class="post-list">
-<li>
-  <p class="meta">29 October 2026 &middot; Strategy Lab #3 &middot; <a href="https://github.com/AlgoStrategyLab/donchian-breakout">code</a></p>
-  <h2><a href="donchian-breakout/">The Turtle Traders' Rule Dodged the COVID Crash. It Also Turned $1 into $8 Instead of $70.</a></h2>
-  <p>Donchian channel breakout on the S&amp;P 500, 1987&ndash;2026. The daily exit solves the fast-crash problem the monthly filters in articles 1 and 2 structurally cannot &mdash; COVID at &minus;9% against &minus;34% &mdash; but it trades 24 times a year, the breakout signal predicts nothing, and no cell in the parameter grid beats buy-and-hold.</p>
-</li>
-<li>
-  <p class="meta">23 October 2026 &middot; Strategy Lab #2 &middot; <a href="https://github.com/AlgoStrategyLab/sma-trend-filter">code</a></p>
-  <h2><a href="sma-trend-filter/">The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</a></h2>
-  <p>Faber's moving-average filter over 1987&ndash;2026, head to head with the momentum filter from article #1. They make the same call 88% of the time, it switches 48 times against momentum's 27, and every moving-average length longer than the famous 10 months beat it while trading less.</p>
-</li>
-<li>
-  <p class="meta">22 October 2026 &middot; Strategy Lab #1 &middot; <a href="https://github.com/AlgoStrategyLab/dual-momentum">code</a></p>
-  <h2><a href="dual-momentum/">I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</a></h2>
-  <p>Gary Antonacci's Global Equities Momentum over 1997–2026. Before the book was published it beat the S&amp;P 500 by 5.1 points a year; after, it trailed by 5.4. The trend filter does all the work, optimising the lookback makes it worse, and the risk reduction survives what the returns do not.</p>
-</li>
+<article>
+<h1>Strategy Lab</h1>
+<p class="deck">Systematic trading strategies backtested properly: exact rules, every metric, the robustness tests that decide whether any of it means anything, and all the code.</p>
+<p><a href="compare/">Compare every strategy side by side &rarr;</a></p>
+<ul class="cards">
+<li class="card"><a href="rsi2-mean-reversion/"><h3>RSI(2) Wins 72% of Its Trades. More Than Half of What It Earns Is T-Bill Interest.</h3></a><p class="deck">The most copied mean-reversion rule in retail trading, tested over 40 years. The signal is real. The strategy around it is mostly cash.</p><p class="meta">Strategy Lab #4 &middot; 9 November 2026 &middot; mean-reversion</p></li>
+<li class="card"><a href="donchian-breakout/"><h3>The Turtle Traders&#x27; Rule Dodged the COVID Crash. It Also Turned $1 into $8 Instead of $70.</h3></a><p class="deck">It solves the exact problem my last two articles couldn't. Then it charges six percentage points a year for the privilege.</p><p class="meta">Strategy Lab #3 &middot; 29 October 2026 &middot; trend-following</p></li>
+<li class="card"><a href="sma-trend-filter/"><h3>The 10-Month Moving Average Is the Most Famous Rule in Tactical Investing. I Tested It for 40 Years.</h3></a><p class="deck">It agrees with the momentum filter from the last article 88% of the time, trades twice as often to do it, and the famous number turns out to be the wrong one.</p><p class="meta">Strategy Lab #2 &middot; 23 October 2026 &middot; trend-following</p></li>
+<li class="card"><a href="dual-momentum/"><h3>I Backtested Dual Momentum for 29 Years. It Stopped Working the Year the Book Came Out.</h3></a><p class="deck">Full rules, 90+ metrics, <a class="gl" href="../glossary/#walk-forward">walk-forward</a> validation, and all the code. The risk numbers held up. The returns did not.</p><p class="meta">Strategy Lab #1 &middot; 22 October 2026 &middot; trend-following</p></li>
 </ul>
-
-<h2 style="font-family:var(--sans);font-size:1.3rem;margin-top:48px">Coming next</h2>
-<p class="lede">RSI(2) mean reversion &middot; cointegration pairs trading &middot; volatility targeting &middot; cross-sectional momentum &middot; the variance risk premium</p>
+</article>
 </div>
 
 <footer class="site"><div class="wrap">
-Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab">github.com/AlgoStrategyLab</a> &middot; <a href="feed.xml">RSS</a><br>
-Research and education only, not investment advice.
+Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab/strategy-lab">github.com/AlgoStrategyLab</a> &middot; <a href="feed.xml">RSS</a>
 </div></footer>
 </body>
 </html>
