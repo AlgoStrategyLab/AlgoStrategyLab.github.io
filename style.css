@@ -64,3 +64,44 @@ dl.glossary dt:target{color:var(--accent)}
 dl.glossary dd{margin:0;font-size:1.06rem;line-height:1.62;color:var(--muted)}
 article a.gl{color:inherit;text-decoration:none;border-bottom:1px dotted var(--faint)}
 article a.gl:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ---- hub cards ------------------------------------------------------- */
+.cards{list-style:none;padding:0;margin:0}
+.cards .card{padding:26px 0;border-bottom:1px solid var(--rule)}
+.cards .card:last-child{border-bottom:0}
+.cards .card a{text-decoration:none}
+.cards .card h3{font-family:var(--sans);font-size:1.32rem;line-height:1.3;margin:0 0 8px;
+  font-weight:700;color:var(--text);letter-spacing:-0.015em}
+.cards .card a:hover h3{color:var(--accent)}
+.cards .card .deck{font-size:1.02rem;margin:0 0 9px;line-height:1.55}
+.cards .card .meta{font-family:var(--sans);font-size:.82rem;color:var(--faint);margin:0;
+  letter-spacing:.01em}
+
+/* ---- comparison page ------------------------------------------------- */
+.wrap.wide{max-width:1040px}
+.compare-intro{font-family:var(--sans);font-size:.95rem;color:var(--muted);
+  background:var(--surface);padding:16px 18px;border-radius:5px;margin:0 0 34px;line-height:1.55}
+.table-scroll{overflow-x:auto;margin:0 0 40px;-webkit-overflow-scrolling:touch}
+table.compare{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.95rem;
+  line-height:1.45;min-width:640px}
+table.compare caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--faint);
+  padding:0 0 12px}
+table.compare th{text-align:right;font-weight:600;font-size:.78rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--faint);padding:0 0 10px 18px;
+  border-bottom:1px solid var(--rule);white-space:nowrap}
+table.compare th:first-child,table.compare td:first-child{text-align:left;padding-left:0}
+table.compare td{padding:14px 0 14px 18px;border-bottom:1px solid var(--rule);text-align:right;
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+table.compare td:first-child{white-space:normal;min-width:190px}
+table.compare td a{color:var(--text);text-decoration:none;font-weight:600}
+table.compare td a:hover{color:var(--accent)}
+table.compare .sub{display:block;font-size:.8rem;color:var(--faint);font-weight:400;margin-top:2px}
+table.compare tr.benchmark td{color:var(--muted);font-style:italic}
+table.compare tr.benchmark td:first-child{font-style:normal;font-weight:600}
+table.compare tbody tr:last-child td{border-bottom:0}
+.neg{color:var(--red,#e34948)}
+@media(max-width:600px){
+  table.compare{font-size:.88rem}
+  table.compare td{padding:11px 0 11px 12px}
+  table.compare th{padding-left:12px}
+}
