@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://algostrategylab.github.io/compare/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.8ef6aeec.css">
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -38,10 +38,21 @@
 </tbody>
 </table>
 </div>
-<h2>The same window, for everything</h2>
-<p>The table above measures each strategy over its own history, which is what its article reports. Those histories differ — dual momentum begins in 1997 and the rest in 1987 — so the figures are not strictly comparable with one another. Everything below is recomputed over May 1997 – October 2026, the window all of them share.</p>
-<figure><img src="../assets/charts/compare_growth.png" alt="Growth of one dollar for every strategy and the S&amp;P 500 over the shared window"><figcaption>Rebased to $1 at the start of the shared window. Log scale.</figcaption></figure>
-<figure><img src="../assets/charts/compare_risk_return.png" alt="Each strategy plotted by maximum drawdown against annualised return"><figcaption>Up and to the left is better: more return for less of a fall.</figcaption></figure>
+<h2>Measured against the index, not beside it</h2>
+<p>The table above measures each strategy over its own history, which is what its article reports. Those histories differ — dual momentum begins in 1997 and the rest in 1987 — so they are not strictly comparable with one another. Everything below is recomputed over May 1997 – October 2026, the window all of them share, and compared against the S&amp;P 500 throughout.</p>
+<figure><img src="../assets/charts/compare_relative.png" alt="Each strategy&#39;s value divided by the S&amp;P 500 over time"><figcaption>Each strategy divided by the index. A rising line is winning, a falling line is losing ground even while making money. Every one of them peaks within months of March 2009 and declines from there.</figcaption></figure>
+<figure><img src="../assets/charts/compare_episodes.png" alt="Grid of each strategy against the index through each market episode"><figcaption>Green in every bear market, red in every bull. These are insurance policies: they pay out when the index falls and cost premium when it rises.</figcaption></figure>
+<figure><img src="../assets/charts/compare_capture.png" alt="Up-capture against down-capture for each strategy, with the index at 100/100"><figcaption>All four sit above the equal-capture line, so each keeps proportionally more of the index's good months than its bad ones. None of them reach the index's upside.</figcaption></figure>
+<div class="table-scroll">
+<table class="compare">
+<caption>Share of the index's monthly moves each strategy captured.</caption>
+<thead><tr><th>Strategy</th><th>Up-capture</th><th>Down-capture</th><th>Spread</th></tr></thead>
+<tbody>
+<tr><td><a href="../dual-momentum/">Dual Momentum (GEM)</a></td><td>78%</td><td>62%</td><td>+16</td></tr><tr><td><a href="../sma-trend-filter/">10-month SMA filter</a></td><td>69%</td><td>58%</td><td>+11</td></tr><tr><td><a href="../donchian-breakout/">Donchian 20/10 breakout</a></td><td>37%</td><td>35%</td><td>+2</td></tr><tr><td><a href="../rsi2-mean-reversion/">RSI(2) mean reversion</a></td><td>10%</td><td>-1%</td><td>+10</td></tr>
+</tbody>
+</table>
+</div>
+<figure><img src="../assets/charts/compare_growth.png" alt="Growth of one dollar for every strategy and the S&amp;P 500"><figcaption>The underlying curves, rebased to $1 at the start of the shared window. Log scale.</figcaption></figure>
 <div class="table-scroll">
 <table class="compare">
 <caption>Recomputed over May 1997 – October 2026.</caption>
