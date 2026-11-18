@@ -35,34 +35,36 @@
 <tr><td><a href="../sma-trend-filter/">10-month SMA filter</a><span class="sub">trend-following &middot; monthly &middot; 1987–2026</span></td><td>9.38%</td><td>0.71</td><td class="neg">−35.2%</td></tr>
 <tr><td><a href="../donchian-breakout/">Donchian 20/10 breakout</a><span class="sub">trend-following &middot; daily &middot; 1987–2026</span></td><td>5.24%</td><td>0.56</td><td class="neg">−35.8%</td></tr>
 <tr><td><a href="../rsi2-mean-reversion/">RSI(2) mean reversion</a><span class="sub">mean-reversion &middot; daily &middot; 1987–2026</span></td><td>3.62%</td><td>0.79</td><td class="neg">−15.7%</td></tr>
+<tr><td><a href="../pairs-trading/">Pairs trading</a><span class="sub">statistical-arbitrage &middot; daily &middot; 2000–2026</span></td><td class="neg">−0.13%</td><td class="neg">−0.04</td><td class="neg">−9.6%</td></tr>
 </tbody>
 </table>
 </div>
 <h2>Measured against the index, not beside it</h2>
-<p>The table above measures each strategy over its own history, which is what its article reports. Those histories differ — dual momentum begins in 1997 and the rest in 1987 — so they are not strictly comparable with one another. Everything below is recomputed over May 1997 – October 2026, the window all of them share, and compared against the S&amp;P 500 throughout.</p>
+<p>The table above measures each strategy over its own history, which is what its article reports. Those histories differ — 10-month SMA filter goes back to 1987 and Pairs trading only to 2000 — so they are not strictly comparable with one another. Everything below is recomputed over January 2000 – October 2026, the window all of them share, and compared against the S&amp;P 500 throughout.</p>
 <figure><img src="../assets/charts/compare_relative.png" alt="Each strategy&#39;s value divided by the S&amp;P 500 over time"><figcaption>Each strategy divided by the index. A rising line is winning, a falling line is losing ground even while making money. Every one of them peaks within months of March 2009 and declines from there.</figcaption></figure>
-<figure><img src="../assets/charts/compare_episodes.png" alt="Grid of each strategy against the index through each market episode"><figcaption>Green in every bear market, red in every bull. These are insurance policies: they pay out when the index falls and cost premium when it rises.</figcaption></figure>
-<figure><img src="../assets/charts/compare_capture.png" alt="Up-capture against down-capture for each strategy, with the index at 100/100"><figcaption>All four sit above the equal-capture line, so each keeps proportionally more of the index's good months than its bad ones. None of them reach the index's upside.</figcaption></figure>
+<figure><img src="../assets/charts/compare_episodes.png" alt="Grid of each strategy against the index through each market episode"><figcaption>Green in every bear market, red in every bull. The trend and mean-reversion rules behave like insurance policies: they pay out when the index falls and cost premium when it rises. A market-neutral book is mildly green in the falls and deeply red in the rises for a different reason — it barely moves at all.</figcaption></figure>
+<figure><img src="../assets/charts/compare_capture.png" alt="Up-capture against down-capture for each strategy, with the index at 100/100"><figcaption>All four sit above the equal-capture line, so each keeps proportionally more of the index's good months than its bad ones. None of them reach the index's upside. Pairs trading is left off: a long leg and a short leg that net to zero leave no market exposure for a capture ratio to measure.</figcaption></figure>
 <div class="table-scroll">
 <table class="compare">
 <caption>Share of the index's monthly moves each strategy captured.</caption>
 <thead><tr><th>Strategy</th><th>Up-capture</th><th>Down-capture</th><th>Spread</th></tr></thead>
 <tbody>
-<tr><td><a href="../dual-momentum/">Dual Momentum (GEM)</a></td><td>78%</td><td>62%</td><td>+16</td></tr><tr><td><a href="../sma-trend-filter/">10-month SMA filter</a></td><td>69%</td><td>58%</td><td>+11</td></tr><tr><td><a href="../donchian-breakout/">Donchian 20/10 breakout</a></td><td>37%</td><td>35%</td><td>+2</td></tr><tr><td><a href="../rsi2-mean-reversion/">RSI(2) mean reversion</a></td><td>10%</td><td>-1%</td><td>+10</td></tr>
+<tr><td><a href="../dual-momentum/">Dual Momentum (GEM)</a></td><td>74%</td><td>58%</td><td>+16</td></tr><tr><td><a href="../sma-trend-filter/">10-month SMA filter</a></td><td>68%</td><td>53%</td><td>+14</td></tr><tr><td><a href="../donchian-breakout/">Donchian 20/10 breakout</a></td><td>36%</td><td>36%</td><td>+0</td></tr><tr><td><a href="../rsi2-mean-reversion/">RSI(2) mean reversion</a></td><td>8%</td><td>1%</td><td>+8</td></tr>
 </tbody>
 </table>
 </div>
 <figure><img src="../assets/charts/compare_growth.png" alt="Growth of one dollar for every strategy and the S&amp;P 500"><figcaption>The underlying curves, rebased to $1 at the start of the shared window. Log scale.</figcaption></figure>
 <div class="table-scroll">
 <table class="compare">
-<caption>Recomputed over May 1997 – October 2026.</caption>
+<caption>Recomputed over January 2000 – October 2026.</caption>
 <thead><tr><th>Strategy</th><th>CAGR</th><th>Sharpe</th><th>Max drawdown</th><th>$1 became</th></tr></thead>
 <tbody>
-<tr><td><a href="../dual-momentum/">Dual Momentum (GEM)</a></td><td>10.23%</td><td>0.73</td><td class="neg">−33.8%</td><td>$17.65</td></tr>
-<tr><td><a href="../sma-trend-filter/">10-month SMA filter</a></td><td>8.88%</td><td>0.68</td><td class="neg">−35.2%</td><td>$12.28</td></tr>
-<tr><td><a href="../donchian-breakout/">Donchian 20/10 breakout</a></td><td>4.05%</td><td>0.44</td><td class="neg">−35.8%</td><td>$3.23</td></tr>
-<tr><td><a href="../rsi2-mean-reversion/">RSI(2) mean reversion</a></td><td>2.67%</td><td>0.57</td><td class="neg">−15.7%</td><td>$2.17</td></tr>
-<tr class="benchmark"><td>S&amp;P 500</td><td>9.85%</td><td>0.59</td><td class="neg">−55.3%</td><td>$15.94</td></tr>
+<tr><td><a href="../dual-momentum/">Dual Momentum (GEM)</a></td><td>8.77%</td><td>0.65</td><td class="neg">−33.8%</td><td>$9.52</td></tr>
+<tr><td><a href="../sma-trend-filter/">10-month SMA filter</a></td><td>8.18%</td><td>0.64</td><td class="neg">−35.2%</td><td>$8.21</td></tr>
+<tr><td><a href="../donchian-breakout/">Donchian 20/10 breakout</a></td><td>2.91%</td><td>0.34</td><td class="neg">−33.4%</td><td>$2.16</td></tr>
+<tr><td><a href="../rsi2-mean-reversion/">RSI(2) mean reversion</a></td><td>1.99%</td><td>0.44</td><td class="neg">−15.7%</td><td>$1.70</td></tr>
+<tr><td><a href="../pairs-trading/">Pairs trading</a></td><td class="neg">−0.13%</td><td class="neg">−0.04</td><td class="neg">−9.6%</td><td>$0.97</td></tr>
+<tr class="benchmark"><td>S&amp;P 500</td><td>8.27%</td><td>0.51</td><td class="neg">−55.3%</td><td>$8.41</td></tr>
 </tbody>
 </table>
 </div>

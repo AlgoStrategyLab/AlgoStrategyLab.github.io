@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary — Strategy Lab</title>
-<meta name="description" content="Plain-language definitions of the quant and algorithmic trading terms used across the Strategy Lab series: CAGR, Sharpe, drawdown, beta, walk-forward and 59 more.">
+<meta name="description" content="Plain-language definitions of the quant and algorithmic trading terms used across the Strategy Lab series: CAGR, Sharpe, drawdown, beta, market-neutral, walk-forward and 70 more.">
 <link rel="canonical" href="https://algostrategylab.github.io/glossary/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Glossary — Strategy Lab">
@@ -22,7 +22,7 @@
 <article>
 <h1>Glossary</h1>
 <p class="deck">Every piece of jargon used in this series, defined in plain language. No prior knowledge assumed.</p>
-<p class="byline">64 terms &middot; updated 22 October 2026</p>
+<p class="byline">76 terms &middot; updated 18 November 2026</p>
 
 <p class="lede" style="margin-bottom:34px"><a href="#strategy-concepts">Strategy concepts</a> &middot; <a href="#backtesting">Backtesting</a> &middot; <a href="#return-metrics">Return metrics</a> &middot; <a href="#risk-metrics">Risk metrics</a> &middot; <a href="#risk-adjusted-metrics">Risk-adjusted metrics</a> &middot; <a href="#benchmark-relative-metrics">Benchmark-relative metrics</a> &middot; <a href="#instruments">Instruments</a></p>
 
@@ -50,6 +50,30 @@
   <dd>The extra return investors demand for holding something risky instead of cash. Most systematic strategies are attempts to harvest one risk premium or another.</dd>
   <dt id="volatility-targeting">Volatility targeting</dt>
   <dd>Adjusting position size so the portfolio's risk stays roughly constant — holding less when markets are turbulent and more when they are calm.</dd>
+  <dt id="mean-reversion">Mean reversion</dt>
+  <dd>The tendency for a price that has moved sharply away from its recent average to move back towards it. It is the opposite bet to <a class="gl" href="#momentum">momentum</a>, and which one holds depends almost entirely on the horizon: days tend to revert, months tend to trend.</dd>
+  <dt id="rsi">RSI (Relative Strength Index)</dt>
+  <dd>An indicator, from Welles Wilder (1978), that scores recent gains against recent losses on a scale of 0 to 100. Readings near zero mean almost every recent move was down. The period matters enormously: a 14-day RSI is a slow measure of trend strength, while a 2-period RSI reacts almost entirely to the last two closes and is a short-term oversold trigger.</dd>
+  <dt id="long-short">Long/short book</dt>
+  <dd>A portfolio that owns some things and <a class="gl" href="#short-sale">shorts</a> others at the same time. Everything in this series before pairs trading was long-only: the only way to reduce risk was to hold cash. A long/short book can stay fully engaged with the market while having no net bet on its direction.</dd>
+  <dt id="short-sale">Short selling</dt>
+  <dd>Borrowing an instrument, selling it, and buying it back later to return it. You profit if the price falls. Two things make it different from owning: you pay a <a class="gl" href="#borrow-cost">borrow fee</a> for as long as you hold it, and your loss is not capped at what you put in, because the price can keep rising.</dd>
+  <dt id="borrow-cost">Borrow cost</dt>
+  <dd>The annual fee charged for borrowing an instrument in order to short it, quoted in <a class="gl" href="#basis-point">basis points</a> and accrued daily on the value of the short position. Liquid index ETFs cost a fraction of a percent a year; a small stock that everyone wants to short can cost tens of percent.</dd>
+  <dt id="market-neutral">Market-neutral</dt>
+  <dd>Holding long and short positions sized so the portfolio has no meaningful exposure to the market's direction — a <a class="gl" href="#beta">beta</a> near zero. A market-neutral strategy neither gains from a bull market nor loses in a crash; whatever it earns has to come from the relationship between its positions rather than from the market going up.</dd>
+  <dt id="gross-exposure">Gross and net exposure</dt>
+  <dd>Gross exposure is long positions plus short positions, ignoring sign: how much of the portfolio is doing something. Net exposure is longs minus shorts: how much directional bet is left. A book that is 28% long and 28% short has 56% gross exposure and zero net exposure.</dd>
+  <dt id="pairs-trading">Pairs trading</dt>
+  <dd>Buying one instrument and shorting a related one, betting that the gap between them will close rather than that either will rise. The position makes money if the cheap leg catches up or the expensive leg falls back — in principle regardless of what the market does.</dd>
+  <dt id="spread">Spread</dt>
+  <dd>In pairs trading, the gap between two instruments' price paths once both have been rebased to a common starting value. The strategy opens a position when the spread is unusually wide and closes it when the spread returns to zero. (In market-making the same word means something else: the gap between the bid and the ask.)</dd>
+  <dt id="distance-method">Distance method</dt>
+  <dd>The classic way of choosing pairs, from Gatev, Goetzmann and Rouwenhorst (2006). Rebase every candidate's price path to 1 over a formation period, then for each possible pair add up the squared differences between the two paths. The smallest sums are the pairs that tracked each other most closely, and those are the ones you trade.</dd>
+  <dt id="convergence">Convergence</dt>
+  <dd>The assumption a pairs trade rests on: that a spread which has opened will close again. When it does, the position is closed at a profit. When it does not — because the two instruments were never as linked as their history suggested — the trade is eventually closed wherever it happens to be.</dd>
+  <dt id="statistical-arbitrage">Statistical arbitrage</dt>
+  <dd>Trading on a statistical relationship between instruments rather than on a view about any one of them. It is not arbitrage in the strict sense: nothing guarantees the relationship holds, and the usual way these strategies fail is that one of them stops holding while the position is open.</dd>
 </dl>
 <h2 id="backtesting">Backtesting</h2>
 <dl class="glossary">
