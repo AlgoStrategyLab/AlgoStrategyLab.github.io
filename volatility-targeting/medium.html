@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Volatility Layer Improved Every Rule I Put It On. On Shuffled Dates It Was Worse Than Nothing.</title>
+<meta name="description" content="Volatility targeting backtested as a layer over buy and hold and four strategies from the Strategy Lab series, 1981-2026: the worst drawdown of buy and hold falls from 55% to 29%, Sharpe rises on all five books, and two controls show the gain comes entirely from the timing.">
+<meta name="author" content="Abhinav Taduka">
+<link rel="canonical" href="https://algostrategylab.github.io/volatility-targeting/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Volatility Layer Improved Every Rule I Put It On. On Shuffled Dates It Was Worse Than Nothing.">
+<meta property="og:description" content="Volatility targeting backtested as a layer over buy and hold and four strategies from the Strategy Lab series, 1981-2026: the worst drawdown of buy and hold falls from 55% to 29%, Sharpe rises on all five books, and two controls show the gain comes entirely from the timing.">
+<meta property="og:image" content="https://algostrategylab.github.io/assets/charts/vt_c3_shuffled.png">
+<meta property="og:url" content="https://algostrategylab.github.io/volatility-targeting/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Strategy Lab" href="https://algostrategylab.github.io/feed.xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Strategy Lab</a>
+  <nav><a href="../">All strategies</a><a href="../glossary/">Glossary</a><a href="https://github.com/AlgoStrategyLab/strategy-lab">GitHub</a><a href="../feed.xml">RSS</a></nav>
+</div></header>
+
+<div class="wrap">
+<article>
+<h1>A Volatility Layer Improved Every Rule I Put It On. On Shuffled Dates It Was Worse Than Nothing.</h1>
+<p class="deck">Scaling a position by target volatility over recent volatility cut the worst drawdown of buy &amp; hold from 55% to 29%. Two controls show the whole of the gain is timing, and none of it is holding less.</p>
+<p class="byline">Abhinav Taduka &middot; 25 November 2026 &middot; Strategy Lab #6</p>
+<p>Every article in this series so far has asked the same question in a different way: what should I own? <a href="../dual-momentum/">Dual momentum</a> ranks assets against each other. The <a href="../sma-trend-filter/">10-month moving average</a> and the <a href="../donchian-breakout/">Donchian breakout</a> decide whether to own the index at all. <a href="../rsi2-mean-reversion/">RSI(2)</a> buys it for a few days at a time. <a href="../pairs-trading/">Pairs trading</a> owns one thing and shorts another.</p>
+<p>This one asks a different question, and asks it of all of them at once: <strong>how much?</strong></p>
+<p>The rule is one line. Measure how volatile your own returns have been lately. If that is above the volatility you wanted, hold less; if it is below, hold more. Nothing about the market's direction enters into it. You are not forecasting returns — you are forecasting risk, and then sizing to it.</p>
+<p><strong>On S&amp;P 500 buy &amp; hold over 45 years it cut the worst drawdown from −55.2% to −29.3% and raised the <a class="gl" href="../glossary/#sharpe">Sharpe ratio</a> from 0.69 to 0.74. Buy and hold returned 11.25% a year over the same window; with the layer that falls to 7.82%.</strong></p>
+<p><strong>It improved every rule I put it on — buy &amp; hold and four of the five strategies in this series — and none of them by much.</strong> The Sharpe gains run from 0.018 to 0.052.</p>
+<p><strong>And when I kept the same position sizes but applied them on shuffled dates, the result was worse than never adjusting at all</strong> — a Sharpe of 0.60 against 0.69 for doing nothing. That is the finding worth the article. The sizes are not what matters. The days they land on are.</p>
+<p class="note"><strong>New to systematic trading?</strong> Terms like <a href="../glossary/#cagr">CAGR</a>, <a href="../glossary/#sharpe">Sharpe ratio</a>, <a href="../glossary/#volatility">volatility</a>, <a href="../glossary/#drawdown">drawdown</a> and <a href="../glossary/#turnover">turnover</a> are explained in plain language in the <a href="../glossary/">glossary</a> — no prior knowledge assumed. Dotted underlines link straight to the relevant entry.</p>
+<h2>The rule, exactly as backtested</h2>
+<figure><img src="../assets/tables/vt_t_setup.png" alt="How the layer was tested"></figure>
+
+<p>At each rebalance, using only closing prices up to that day:</p>
+<p>• Take the strategy's <strong>own</strong> daily returns over the last 60 trading days — the weights it actually held, times what those holdings did. Not the market's returns.</p>
+<p>• Annualise their standard deviation. That is the realised volatility.</p>
+<p>• The scale is <strong>target volatility divided by realised volatility</strong>, so a strategy running at 20% when you asked for 10% holds half as much.</p>
+<p>• Multiply every weight by that scale. Whatever is not held sits in cash earning nothing.</p>
+<p>• The scale is capped at 1.0 for most of this article. The section on leverage lifts the cap and charges for it.</p>
+<p>Two details decide whether this is an honest test.</p>
+<p><strong>The volatility measured is the strategy's, not the market's.</strong> This sounds like a technicality and is not. A trend filter that has already moved to bonds has almost no volatility left to damp; scaling it by the market's turbulence would shrink a position that is already safe, or — worse, once leverage is allowed — lever one. Measuring the strategy's own risk is the only version of the rule that composes with a rule that already manages risk.</p>
+<p><strong>The scale uses no information from the day it is applied.</strong> The base weights are known the evening before the fill, so the return series the volatility is computed from is one an investor could have measured on the morning they traded. The same one-day lag the rest of this series uses applies here too.</p>
+<h2>What it does to buy &amp; hold</h2>
+<figure><img src="../assets/tables/vt_t_headline.png" alt="The layer on S&amp;P 500 buy &amp; hold, November 1981 – November 2026"></figure>
+
+<figure><img src="../assets/charts/vt_c1_equity.png" alt="Forty-five years of compounding, log scale, with drawdowns underneath."></figure>
+
+<p>A third less return, a third less volatility, and a little over half the worst loss. A dollar in November 1981 became $29.64 with the layer, against $121.49 left alone — the cost of forty-five years of holding about three-quarters of the market. <a class="gl" href="../glossary/#sharpe">Sharpe</a> improved by 0.052, Sortino by a similar margin, and <a class="gl" href="../glossary/#calmar">Calmar</a> — return over worst drawdown — went from 0.20 to 0.27, which is the largest proportional improvement in the table and the one that matches what the rule is for.</p>
+<figure><img src="../assets/charts/vt_c2_scale.png" alt="The volatility being measured, and the exposure it implies, 1981–2026."></figure>
+
+<p>The dial spends most of its time somewhere in the middle. Average exposure was 72%, the median 74%. It sat at the cap — fully invested — on 18% of rebalance dates, and below half on 19%. The lowest it ever went was 14%, in the weeks after October 1987.</p>
+<p>This is the first thing to notice about volatility targeting: it is not a crash filter. It does not go to cash. It is permanently, mildly de-risked, with occasional deep cuts.</p>
+<h2>The two controls</h2>
+<p>The headline number is a Sharpe improvement of 0.052 on a rule that reduces average exposure to 72%. Before believing it, there are two cheaper explanations to eliminate.</p>
+<figure><img src="../assets/tables/vt_t_controls.png" alt="Two controls: the same average exposure, and the same sizes on the wrong days"></figure>
+
+<p><strong>First: is it just holding less?</strong> Hold 72% of the index all the time, never adjusting. That returns 8.28% at a Sharpe of 0.69 — identical to buy and hold to three decimal places, which is exactly what theory says should happen. Mixing a portfolio with cash moves you along a straight line through the origin, and the slope of that line is the Sharpe ratio. Scaling by a constant cannot change it. So none of the improvement comes from holding less on average. All of it has to come from holding less <em>at particular times</em>.</p>
+<p><strong>Second: is any varying position size as good?</strong> Take the exact multiset of scales the rule produced over 45 years — the same 19% below half, the same 72% average — shuffle them, and apply them on the wrong dates. Five independent draws.</p>
+<figure><img src="../assets/charts/vt_c3_shuffled.png" alt="Timed against five shuffled draws and against leaving the position alone."></figure>
+
+<p>The shuffled version returns 7.44% at a Sharpe of 0.60, with a worst drawdown of −44.7%. That is worse than the targeted version on every measure, and worse than doing nothing at all on Sharpe. Moving your position size around for no reason is not neutral — it costs you, because the size changes add variance without buying anything.</p>
+<p>So the two controls bracket the result from both sides. Holding less by itself is worth exactly zero. Moving the size around by itself is worth less than zero. The entire improvement, and then some, is in the correspondence between the sizes and the days.</p>
+<h2>Why the days are knowable</h2>
+<p>That correspondence only exists if volatility is forecastable. It is, and the margin is not subtle.</p>
+<figure><img src="../assets/tables/vt_t_persistence.png" alt="Why it works: one of these is forecastable and the other is not"></figure>
+
+<figure><img src="../assets/charts/vt_c5_persistence.png" alt="Sixty-day windows, 1981–2026."></figure>
+
+<p>The correlation between this 60-day window's volatility and the next one's is 0.47, and 0.59 by rank. The correlation between this window's volatility and the next window's <strong>return</strong> is 0.09 — close enough to nothing that no return forecast is available here.</p>
+<p>That asymmetry is the whole machine. Volatility clusters: calm follows calm and turbulence follows turbulence, reliably enough to act on two months ahead. Returns do not. A strategy that tries to use the first fact without pretending to know the second is doing the only thing the data supports, and the size of the prize — a few hundredths of a Sharpe point — is about right for a signal that predicts the denominator and not the numerator.</p>
+<h2>It works on everything, and barely</h2>
+<figure><img src="../assets/charts/vt_c4_layer.png" alt="Every strategy in the series, before and after the layer."></figure>
+
+<figure><img src="../assets/tables/vt_t_layer.png" alt="Every rule in the series, before and after the layer (de-risking only)"></figure>
+
+<p>Five books, five improvements, all small. Buy &amp; hold gains the most, at 0.052. <a href="../donchian-breakout/">Donchian</a> gains the least, at 0.018. The pattern behind the ordering is simple: <strong>the more a strategy already manages its own risk, the less this layer has left to do.</strong></p>
+<p>Buy and hold manages nothing, so its average scale is 72% and the layer has plenty of work. The <a href="../sma-trend-filter/">moving-average filter</a> already moves to bonds in bad markets, so its own volatility is lower, its scale averages 82%, and the gain is smaller. <a href="../rsi2-mean-reversion/">RSI(2)</a> is in the market about 6% of the time, has a realised volatility of 2.8%, and sits at the cap on 98% of days — the layer is almost never doing anything, and the gain is 0.021.</p>
+<p>The drawdown improvements follow the same ordering and are larger in absolute terms: 25.9% for buy and hold against 0.5% for RSI(2).</p>
+<p>Pairs trading from <a href="../pairs-trading/">last week's article</a> is absent from this table for a reason that is worth a sentence. Its returns are market-neutral and almost exactly zero. Scaling zero by anything is zero, and a Sharpe ratio near zero is not improved by dividing its numerator and denominator by the same number. The layer has nothing to act on, which is consistent with everything else here: it is a risk tool, and it does nothing for a strategy whose problem is the absence of return.</p>
+<h2>Leverage is where it goes wrong</h2>
+<p>Everything above caps the position at 1.0, so the rule can only de-risk. The original research does not cap it: when volatility is low you are supposed to hold <em>more</em> than 100%, financed on margin. That is where the published Sharpe gains mostly come from, and where a retail implementation runs into the real world.</p>
+<figure><img src="../assets/tables/vt_t_cap.png" alt="How far to let it borrow, on S&amp;P 500 buy &amp; hold"></figure>
+
+<figure><img src="../assets/charts/vt_c6_leverage.png" alt="What raising the cap does, and what it does to RSI(2)."></figure>
+
+<p>On buy and hold, raising the cap does almost nothing good. Sharpe goes from 0.737 at no leverage to 0.738 at 1.25×, then declines: 0.728 at 2× and 0.708 at 3×. The worst drawdown does not move at all, because leverage is only ever applied in calm markets and calm markets are not where drawdowns come from. You add return, you add the same amount of volatility, you pay margin for the privilege, and you end up where you started.</p>
+<figure><img src="../assets/tables/vt_t_leverage.png" alt="Letting the rule borrow: helpful on the trend rules, ruinous on RSI(2)"></figure>
+
+<p>On the trend rules it is a little better — <a href="../dual-momentum/">dual momentum</a> gains 0.079 with a 2× cap against 0.035 without — because those strategies spend time in bonds, bonds are quiet, and levering a quiet thing is the trade that worked for forty years of falling rates. Whether you believe that repeats is a view about rates, not about volatility targeting.</p>
+<p>And on RSI(2) it is a disaster. Sharpe falls from 0.81 to 0.64 — worse than the unmanaged strategy. The reason is mechanical and worth understanding, because it is the failure mode of this entire family of rules: <strong>RSI(2) is in cash or bonds 94% of the time, so its realised volatility is 2.8%, so a 10% target tells it to hold 98% of the time at the cap.</strong> It borrows 87% of the account on average, and what it buys with the borrowed money is the bond position it was sitting in. It pays margin to lever cash.</p>
+<p>Nothing in the formula prevents this. A rule that divides by a small number produces a large number, and a strategy whose defining feature is being out of the market has a very small denominator. If you put a volatility target on top of something defensive, cap it at 1.0 or check what it is actually buying.</p>
+<h2>What it costs to run</h2>
+<figure><img src="../assets/tables/vt_t_costs.png" alt="What the extra trading costs"></figure>
+
+<p>Turnover on buy and hold goes from 2% a year to 89% — you are now trading a position that used to need no trading at all. Frictionless the targeted version returns 7.91%; at 10 bps it returns 7.82%, so the layer's trading costs about nine basis points a year. At 50 bps the CAGR falls to 7.44% and the Sharpe to 0.70.</p>
+<p>This is a much gentler cost profile than <a href="../pairs-trading/">pairs trading</a>, where the entire edge disappeared between 5 and 10 basis points. Volatility targeting trades about 89% a year against that strategy's 604%, and the improvement survives costs that would destroy a higher-frequency rule. It is one of the few things in this series that still works at 50 bps.</p>
+<p>Margin is similarly minor at the scale a 2× cap implies: at 150 bps over cash the drag is 0.06% a year, because the borrowing is shallow and intermittent.</p>
+<h2>The parameters barely matter, which is the point</h2>
+<figure><img src="../assets/tables/vt_t_target.png" alt="The target sets the risk, not the Sharpe"></figure>
+
+<p>The volatility target is not a performance knob. Across 6% to 20% the Sharpe stays between 0.710 and 0.741 while realised volatility tracks the target almost exactly — ask for 6% and get 6.86%, ask for 15% and get 14.57%. The target chooses where on the risk line you sit. It does not choose how good the line is. That is unusual and genuinely useful: it means the parameter you most want to set for personal reasons is the one that does not need optimising.</p>
+<figure><img src="../assets/tables/vt_t_lookback.png" alt="How long to look back, and whether to weight recent days more"></figure>
+
+<p>The lookback matters a little more and in a direction worth noting. A 20-day window gives the best Sharpe in the grid at 0.773, but at 182% turnover — double the 60-day version — and a worse drawdown, because a short window reacts to noise as readily as to regime. A 250-day window trades a third as much and scores 0.722 against the 60-day window's 0.737. An EWMA with the same effective memory does marginally better than the plain average, at 0.748, which is what you would expect from an estimator that stops treating a three-month-old crash as current news.</p>
+<p>Nothing here is a cliff. Every setting in both grids improves on the unmanaged strategy's 0.685, which is a different situation from the parameter grids in the previous three articles, where the best cell was usually an artifact and most cells were losses.</p>
+<h2>Before and after publication</h2>
+<figure><img src="../assets/tables/vt_t_inout.png" alt="Before and after Moreira &amp; Muir published"></figure>
+
+<p>This is the fifth strategy in the series tested against its own publication date, and the fourth where the period after looks worse than the period before. Before 2017 the layer took Sharpe from 0.641 to 0.728, a gain of 0.087. From 2017 it took it from 0.828 down to 0.753.</p>
+<p>I do not think this one is arbitrage, and the reason is visible in the same row. The index returned 14.36% a year over the out-of-sample period against 10.33% before it. A rule whose entire function is to hold less than everything was always going to look bad in the strongest nine-year stretch in the sample. The honest statement is that the last nine years have not been a test of this rule — a de-risking overlay cannot distinguish itself in a period that never required de-risking.</p>
+<p>Cederburg and co-authors made a stronger version of this argument in 2020, finding that volatility-managed portfolios do not reliably beat their unmanaged counterparts out of sample once you account for the implementation. The result here is consistent with theirs and I would not claim to settle it.</p>
+<h2>Where it earned its keep</h2>
+<figure><img src="../assets/charts/vt_c7_episodes.png" alt="Every episode since 2000."></figure>
+
+<figure><img src="../assets/tables/vt_t_episodes.png" alt="Total return through each episode, and how much was held through it"></figure>
+
+<p>Through the dot-com bust the layer held 48% on average and returned −28.1% against the index's −47.4%. Through the financial crisis it held 39% and returned −21.3% against −55.2%. Through the 2022 bear it held 44% and returned −13.0% against −24.5%.</p>
+<p>And it paid for all of that in the bull markets, holding 75% through the 2010s and capturing 193% against the index's 483%.</p>
+<p>The exception is COVID, and it is instructive. The layer held 61% through the fastest crash in the sample and returned −23.8% against −33.6% — a much thinner margin than 2008 or 2022. A 60-day volatility estimate cannot see a crash that takes 23 trading days. By the time realised volatility had risen enough to cut the position, the fall was over and the rule spent the recovery underinvested. Every estimator in the lookback grid has this problem; the 20-day version has it slightly less and pays for the privilege everywhere else.</p>
+<h2>What I'd take from this</h2>
+<p><strong>It is a risk tool and it should be judged as one.</strong> The headline comparison everyone reaches for — did Sharpe go up — understates it and overstates it at the same time. Sharpe moved by 0.052, which is nearly nothing. The worst drawdown moved by 25.9%, which is the difference between an investor holding on and an investor capitulating in March 2009. If the reason you want this is that you cannot sit through a 55% loss, the layer addresses exactly that, and the Sharpe is beside the point.</p>
+<p><strong>The timing is real and the magnitude is small.</strong> Both controls say the same thing from opposite directions, and neither is ambiguous. But a signal that forecasts risk and not return cannot produce a large improvement in a ratio of return to risk, and it didn't. Treat a backtest claiming otherwise with suspicion.</p>
+<p><strong>Cap it at 1.0 unless you have checked what the leverage buys.</strong> The de-risking is free in the sense that it needs no borrowing and costs nine basis points a year in turnover. The leverage is where the margin bill, the path dependence and the RSI(2) failure mode all live, and on plain buy &amp; hold it added nothing at any cap I tested.</p>
+<p><strong>It composes.</strong> This is the part I did not expect. The layer sits on top of five books built independently, over different universes and rebalance frequencies, without modifying any of them, and improves all five. Almost nothing in quantitative investing stacks that cleanly. The reason it does is that it answers a question none of the others were asking.</p>
+<h2>Caveats worth stating plainly</h2>
+<p><strong>One market, one asset class.</strong> Everything here is US equities through a mutual-fund proxy, with a bond fund and a T-bill index alongside. Volatility targeting is usually argued for hardest on futures and on momentum strategies, where the volatility swings are wider. I have not tested it there.</p>
+<p><strong>Uninvested capital earns nothing.</strong> The engine pays no interest on the part of the portfolio the layer moves out of the market, which is the harshest assumption available and costs the targeted version real money across 45 years of non-zero rates. Crediting T-bills would raise every targeted return here and would not change the Sharpe comparison, since the control that holds a constant 72% is affected identically.</p>
+<p><strong>The volatility estimate is the simplest one that works.</strong> A rolling standard deviation and an EWMA, nothing more. A GARCH model, an implied-volatility input, or a downside-only measure would each change the timing somewhat; the published literature does not suggest they change it enormously, but I have not run them.</p>
+<p><strong>The shuffled control preserves the distribution, not the autocorrelation.</strong> Shuffling destroys the clustering in the exposure path as well as its alignment to the market, so some of the gap between timed and shuffled is the cost of a jumpier position rather than the value of correct timing. The constant-exposure control brackets this from the other side, and between the two the conclusion holds, but the shuffled number alone slightly overstates the case.</p>
+<p>And as always: one window, one market, and a rule I chose knowing how the last 45 years turned out.</p>
+<h2>The code</h2>
+<p>Same open-source harness as the rest of the series. This article needed the engine to hold more than it owns, so it now takes a leverage cap and charges a margin spread on borrowed capital, alongside the short book added in article #5. The layer is a strategy that wraps another strategy, which means it applies to every rule in the repo without touching any of them.</p>
+<pre><code>pip install -r requirements.txt
+python strategies/volatility-targeting/run.py
+python strategies/volatility-targeting/make_charts.py</code></pre>
+<p><strong>Code:</strong> <a href="https://github.com/AlgoStrategyLab/strategy-lab/tree/main/strategies/volatility-targeting">strategy-lab/strategies/volatility-targeting</a> &mdash; this strategy, with every output file committed. <strong>Engine:</strong> <a href="https://github.com/AlgoStrategyLab/strategy-lab">AlgoStrategyLab/strategy-lab</a> &mdash; the shared harness, MIT licensed.</p>
+<p><strong>Next up:</strong> risk parity — splitting money between assets by how much each one moves, rather than by a rule about which one to own.</p>
+<hr>
+<p class="note"><strong>References.</strong> Moreira, A. &amp; Muir, T. (2017), "Volatility-Managed Portfolios", <em>Journal of Finance</em> 72(4) — the paper this tests. Harvey, C. et al. (2018), "The Impact of Volatility Targeting", <em>Journal of Portfolio Management</em> 45(1). Cederburg, S. et al. (2020), "On the Performance of Volatility-Managed Portfolios", <em>Journal of Financial Economics</em> 138(1) — the main out-of-sample challenge to Moreira and Muir. Barroso, P. &amp; Santa-Clara, P. (2015), "Momentum Has Its Moments". Data: Yahoo Finance adjusted closes, retrieved 25 November 2026.</p>
+<p class="note">This is research and education, not investment advice. Backtests benefit from hindsight in instrument choice and start date, and past performance does not predict future results.</p>
+</article>
+</div>
+
+<footer class="site"><div class="wrap">
+Strategy Lab &middot; <a href="https://github.com/AlgoStrategyLab/strategy-lab">github.com/AlgoStrategyLab</a> &middot; <a href="../feed.xml">RSS</a>
+</div></footer>
+</body>
+</html>

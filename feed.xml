@@ -5,6 +5,13 @@
 <description>Systematic trading strategies, backtested properly.</description>
 <language>en</language>
 <item>
+<title>A Volatility Layer Improved Every Rule I Put It On. On Shuffled Dates It Was Worse Than Nothing.</title>
+<link>https://algostrategylab.github.io/volatility-targeting/</link>
+<guid isPermaLink="true">https://algostrategylab.github.io/volatility-targeting/</guid>
+<pubDate>Wed, 25 Nov 2026 00:00:00 +0000</pubDate>
+<description>Volatility targeting backtested as a layer over buy and hold and four strategies from the Strategy Lab series, 1981-2026: the worst drawdown of buy and hold falls from 55% to 29%, Sharpe rises on all five books, and two controls show the gain comes entirely from the timing.</description>
+</item>
+<item>
 <title>Pairs Trading Held a Beta of 0.02 for 27 Years. Choosing the Pairs Added Nothing.</title>
 <link>https://algostrategylab.github.io/pairs-trading/</link>
 <guid isPermaLink="true">https://algostrategylab.github.io/pairs-trading/</guid>
